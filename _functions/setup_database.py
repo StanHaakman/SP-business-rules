@@ -7,6 +7,13 @@ from _functions.config import config
 
 
 def create_database(dbname='huwebshop'):
+    parser = ConfigParser()
+    parser.read('database.ini')
+    try:
+        parser.remove_option('postgresql', 'database')
+    except ValueError:
+        pass
+
     try:
         db = config()
         con = psycopg2.connect(**db)
@@ -21,8 +28,6 @@ def create_database(dbname='huwebshop'):
     except (Exception, psycopg2.DatabaseError) as error:
         print(error)
 
-    parser = ConfigParser()
-    parser.read('database.ini')
     parser['postgresql']['database'] = dbname
     with open('database.ini', 'w') as configFile:
         parser.write(configFile)

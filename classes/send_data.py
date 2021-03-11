@@ -21,8 +21,8 @@ class DataSender:
             reader = csv.reader(csvf)
             next(reader)
             for row in reader:
-                cur.execute("insert into products (idproducts, name, brand, category, deeplink, fastmover, target, herhaalaankopen, price) "
-                            "values (%s, %s, %s, %s, %s, %s, %s, %s, %s)",(row))
+                cur.execute("insert into products (idproducts, name, brand, category, deeplink, doelgroep, fastmover, target, herhaalaankopen, price) "
+                            "values (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)",(row))
         con.commit()
         print("Products is now done")
 
