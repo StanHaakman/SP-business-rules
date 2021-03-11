@@ -46,11 +46,12 @@ import numpy as np
 # print(df.sample(15))
 
 # df.to_csv('products.csv', index=False)  # opslaan naar csv
-print('processen beeindigd en opgeslagen!')
+# print('processen beeindigd en opgeslagen!')
 
 
 class Filter_products:
     def __init__(self):
+        print('processen beeindigd en opgeslagen!')
         # Pandas dataframe display completely
         pd.set_option('display.max_rows', None, 'display.max_columns', None,
                   'display.width', None, 'display.max_colwidth', None)
@@ -80,3 +81,4 @@ class Filter_products:
 
     def save_dataframe(self):
         self.dataframe.to_csv('products.csv', index=False)  # opslaan naar csv
+        print('CSV bestand opgeslagen')

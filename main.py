@@ -17,3 +17,4 @@ filter_products.replace_null(columns=['_id', 'name', 'brand', 'category', 'deepl
 filter_products.replace_doelgroep()
 filter_products.replace_gender(invalid=['Gezin', 'B2B', 'Kinderen', 'Senior', 'Baby', 'Grootverpakking', '8719497835768'])
 filter_products.save_dataframe()
+print(filter_products.dataframe.isna().sum())
