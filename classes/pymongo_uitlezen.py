@@ -8,11 +8,11 @@ class Converter:
         self.database = self.client['huwebshop']
 
     @staticmethod
-    def convert_to_csv(fieldnames, filename, dbtable):
+    def convert_to_csv(fieldnames, filename, collection):
         with open(filename, 'w', newline='', encoding='UTF-8') as csvout:
             writer = csv.DictWriter(csvout, fieldnames=[i if '.' not in i else i.split('.', 1)[1] for i in fieldnames])
             writer.writeheader()
-            content = dbtable.find()
+            content = collection.find()
             c = 0
             for item in content:
                 try:
