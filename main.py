@@ -13,6 +13,7 @@ converter.products(fieldnames=['_id', 'name', 'brand', 'category', 'deeplink', '
 
 '''
 filter_products = Filter_products()
+filter_products.load_dataframe(filename='products.csv')
 filter_products.replace_null(columns=['_id', 'name', 'brand', 'category', 'deeplink', 'fast_mover', 'gender', 'herhaalaankopen', 'selling_price', 'doelgroep'])
 filter_products.replace_doelgroep()
 filter_products.replace_gender(invalid=['Gezin', 'B2B', 'Kinderen', 'Senior', 'Baby', 'Grootverpakking', '8719497835768'])

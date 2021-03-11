@@ -1,53 +1,6 @@
 import pandas as pd
 import numpy as np
 
-# Pandas dataframe display completely
-# pd.set_option('display.max_rows', None, 'display.max_columns', None,
-#               'display.width', None, 'display.max_colwidth', None)
-#
-# # Pandas DataFrame scientific display
-# pd.set_option('display.float_format', lambda x: '%.3f' % x)
-#
-# # Pandas bestand inzelen
-# df = pd.read_csv('products.csv', encoding='utf-8')
-#
-# print('Dataset ingeladen en wordt bewerkt.')
-#
-# print(df['herhaalaankopen'].value_counts())
-# exit()
-
-# kolommen = ['brand', 'category', 'color', 'gender', 'doelgroep', 'soort', 'variant',
-#             'sub_category', 'sub_sub_category']
-
-# for kolom in kolommen:
-#     df[kolom] = df[kolom].replace(np.nan, 'onbekend', regex=True)
-
-# df['color'] = df['color'].where(df['color'] != 'Gezin', 'onbekend') # Invalid
-# df['color'] = df['color'].where(df['color'] != '4005808639892', 'onbekend')
-#
-# vals_lijst = ['Gezin', 'B2B', 'Kinderen', 'Senior', 'Baby', 'Grootverpakking', '8719497835768']
-# for vals in vals_lijst:
-#     df['gender'] = df['gender'].where(df['gender'] != vals, 'onbekend')
-
-# df['herhaalaankopen'] = df['herhaalaankopen'].replace(np.nan, False, regex=True)
-
-# df['doelgroep'] = df['doelgroep'].where(df['doelgroep'] != 'Geen', 'onbekend')
-# df['doelgroep'] = df['doelgroep'].where(df['doelgroep'] != 'Kantoor', 'kantoor')
-# df['doelgroep'] = df['doelgroep'].where(df['doelgroep'] != 'volwassene', 'Volwassenen')
-
-# df.columns = ['product_id', 'merk', 'categorie', 'kleur', 'geslacht', 'herhaalaankopen',
-#               'naam', 'prijs', 'doelgroep', 'soort', 'variant',
-#               'sub_categorie', 'sub_sub_categorie']  # bepaal kolomnamen.
-#
-# df = df[['product_id', 'merk', 'prijs', 'doelgroep', 'categorie',
-#          'sub_categorie', 'sub_sub_categorie', 'soort', 'variant',
-#          'geslacht', 'kleur', 'naam', 'herhaalaankopen']]  # bepaal kolomvolgorde.
-
-# print(df.sample(15))
-
-# df.to_csv('products.csv', index=False)  # opslaan naar csv
-# print('processen beeindigd en opgeslagen!')
-
 
 class Filter_products:
     def __init__(self):
@@ -59,8 +12,9 @@ class Filter_products:
         # Pandas DataFrame scientific display
         pd.set_option('display.float_format', lambda x: '%.3f' % x)
 
+    def load_dataframe(self, filename):
         # Pandas bestand inzelen
-        self.dataframe = pd.read_csv('products.csv', encoding='utf-8')
+        self.dataframe = pd.read_csv(filename, encoding='utf-8')
 
     def replace_null(self, columns, replacement='onbekend'):
         for column in columns:
