@@ -2,9 +2,9 @@ import pandas as pd
 import numpy as np
 
 
-class Filter_products:
+class FilterProducts:
     def __init__(self):
-        print('processen beeindigd en opgeslagen!')
+        print('Filter processen gestart!')
         # Pandas dataframe display completely
         pd.set_option('display.max_rows', None, 'display.max_columns', None,
                   'display.width', None, 'display.max_colwidth', None)

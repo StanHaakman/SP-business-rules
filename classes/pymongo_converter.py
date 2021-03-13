@@ -27,6 +27,7 @@ class Converter:
             '''
             If fieldname has a . in it strip everything befor the .
             '''
+            print(f'Converten van {filename} begonnen!')
             writer = csv.DictWriter(csvout, fieldnames=[i if '.' not in i else i.split('.', 1)[1] for i in fieldnames])
             writer.writeheader()
             content = collection.find()
@@ -58,4 +59,24 @@ class Converter:
         :return:
         '''
         collection = self.database.products
+        self.mongo_to_csv(fieldnames, filename, collection)
+
+    def visitors(self, fieldnames, filename):
+        '''
+        Call the convert function with the wanted parameters to converts visitors.
+        :param fieldnames:
+        :param filename:
+        :return:
+        '''
+        collection = self.database.visitors
+        self.mongo_to_csv(fieldnames, filename, collection)
+
+    def sessions(self, fieldnames, filename):
+        '''
+        Call the convert function with the wanted parameters to converts visitors.
+        :param fieldnames:
+        :param filename:
+        :return:
+        '''
+        collection = self.database.sessions
         self.mongo_to_csv(fieldnames, filename, collection)

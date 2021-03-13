@@ -51,7 +51,7 @@ DROP TABLE IF EXISTS Sessions CASCADE ;
 
 CREATE TABLE IF NOT EXISTS Sessions (
   idSessions SERIAL NOT NULL,
-  identifier VARCHAR(255) NULL,
+  identifier VARCHAR NULL,
   sessie_start TIMESTAMP NULL,
   sessie_end TIMESTAMP NULL,
   PRIMARY KEY (idSessions))

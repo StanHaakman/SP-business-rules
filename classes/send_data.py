@@ -33,8 +33,8 @@ class DataSender:
             reader = csv.reader(csvf)
             next(reader)
             for row in reader:
-                cur.execute("insert into Sessions (buids_buids, identifier, sessie_start, sessie_end) "
-                            "values (%s, %s, %s, %s)",(row))
+                cur.execute("insert into Sessions (identifier, sessie_start, sessie_end) "
+                            "values (%s, %s, %s)",(row))
         con.commit()
         print("Sessions is now done")
 
