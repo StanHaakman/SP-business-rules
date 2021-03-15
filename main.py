@@ -36,7 +36,7 @@ print(filter_products.dataframe.isna().sum())
 data_sender = DataSender()
 data_sender.copy_products_csv(pathname='')
 
-converter.visitors(fieldnames=['recommendations.latest_visit'], filename='visitors.csv')
+converter.visitors(fieldnames=['recommendations.segment', 'recommendations.latest_visit'], filename='visitors.csv')
 
 data_sender.copy_visitors_csv(pathname='')
 

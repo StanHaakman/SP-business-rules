@@ -48,8 +48,8 @@ class Converter:
                     continue
                 c += 1
                 if c % 10000 == 0:
-                    print('{} product records written...'.format(c))
-        print('Finished creating the product database content')
+                    print('{} records written...'.format(c))
+        print('Finished creating the database content')
 
     def products(self, fieldnames, filename):
         '''
