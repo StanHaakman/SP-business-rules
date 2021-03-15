@@ -1,3 +1,4 @@
+import os
 import time
 
 from _functions.setup_database import create_database, fill_database
@@ -33,12 +34,15 @@ filter_products.save_dataframe()
 print(filter_products.dataframe.isna().sum())
 
 # Create sender and query the products
+
+absolutepath = os.getcwd()
+
 data_sender = DataSender()
-data_sender.copy_products_csv(pathname='')
+data_sender.copy_products_csv(pathname = absolutepath + "\products.csv")
 
 converter.visitors(fieldnames=['recommendations.segment', 'recommendations.latest_visit'], filename='visitors.csv')
 
-data_sender.copy_visitors_csv(pathname='')
+data_sender.copy_visitors_csv(pathname= absolutepath + "\visitors.csv")
 
 converter.sessions(fieldnames=['user_agent.identifier', 'session_start', 'session_end'], filename='sessions.csv')
 
@@ -46,4 +50,4 @@ filter_sessions = FilterSessions()
 filter_sessions.load_dataframe(filename='sessions.csv')
 filter_sessions.save_dataframe()
 
-data_sender.copy_sessions_csv(pathname='')
+data_sender.copy_sessions_csv(pathname=absolutepath + "\sessions.csv")
