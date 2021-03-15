@@ -6,6 +6,32 @@ from psycopg2.extensions import ISOLATION_LEVEL_AUTOCOMMIT
 from _functions.config import config
 
 
+def drop_database():
+
+    # Configure parser for database.ini
+    parser = ConfigParser()
+    parser.read('database.ini')
+
+    # If Database line exists remove it otherwise pass
+    try:
+        parser.remove_option('postgresql', 'database')
+        with open('database.ini', 'w') as configFile:
+            parser.write(configFile)
+    except ValueError:
+        pass
+
+    # Use config functie to get values from database.ini
+    db = config()
+    con = psycopg2.connect(**db)
+    cursor = con.cursor()
+    con.set_isolation_level(ISOLATION_LEVEL_AUTOCOMMIT)
+    drop_table_command = "DROP DATABASE huwebshop;"
+    cursor.execute(drop_table_command)
+    con.commit()
+    print('Database has been dropped')
+    con.close()
+
+
 def create_database(dbname='huwebshop'):
     '''
     Function to create a new database and extend the database.ini file.
@@ -20,6 +46,8 @@ def create_database(dbname='huwebshop'):
     # If Database line exists remove it otherwise pass
     try:
         parser.remove_option('postgresql', 'database')
+        with open('database.ini', 'w') as configFile:
+            parser.write(configFile)
     except ValueError:
         pass
 
