@@ -23,11 +23,11 @@ CREATE TABLE IF NOT EXISTS Products (
   brand VARCHAR(255) NULL,
   category VARCHAR(255) NULL,
   deeplink VARCHAR(255) NULL,
+  doelgroep VARCHAR(255) NULL,
   fastmover BOOLEAN NULL,
   target genders NULL,
   herhaalaankopen BOOLEAN NULL,
   price DECIMAL NULL,
-  stocklevel INT NULL,
   PRIMARY KEY (idProducts))
 ;
 
@@ -52,7 +52,7 @@ DROP TABLE IF EXISTS Sessions CASCADE ;
 
 CREATE TABLE IF NOT EXISTS Sessions (
   idSessions SERIAL NOT NULL,
-  identifier VARCHAR(255) NULL,
+  identifier VARCHAR NULL,
   sessie_start TIMESTAMP NULL,
   sessie_end TIMESTAMP NULL,
   PRIMARY KEY (idSessions))
