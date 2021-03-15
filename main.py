@@ -23,6 +23,7 @@ Create filter and load in the file. then replace the wanted values.
 
 After that save the new data and print te amount of <null> values in the csv file to check if the filtering process worked.
 '''
+
 filter_products = FilterProducts()
 filter_products.load_dataframe(filename='products.csv')
 filter_products.replace_null(columns=['_id', 'name', 'brand', 'category', 'deeplink', 'fast_mover', 'gender', 'herhaalaankopen', 'selling_price', 'doelgroep'])
@@ -33,11 +34,11 @@ print(filter_products.dataframe.isna().sum())
 
 # Create sender and query the products
 data_sender = DataSender()
-data_sender.send_products(file='products.csv')
+data_sender.copy_products_csv(pathname='')
 
 converter.visitors(fieldnames=['recommendations.latest_visit'], filename='visitors.csv')
 
-data_sender.send_visitors(file='visitors.csv')
+data_sender.copy_visitors_csv(pathname='')
 
 converter.sessions(fieldnames=['user_agent.identifier', 'session_start', 'session_end'], filename='sessions.csv')
 
@@ -45,4 +46,4 @@ filter_sessions = FilterSessions()
 filter_sessions.load_dataframe(filename='sessions.csv')
 filter_sessions.save_dataframe()
 
-data_sender.send_sessions(file='sessions.csv')
+data_sender.copy_sessions_csv(pathname='')
