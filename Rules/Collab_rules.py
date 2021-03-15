@@ -9,6 +9,6 @@ pseudocode for collab filtering
 2e/ crossselling aan verwanten producten
 2f/ deepselling meer verkopen aan soort gelijken producten
 2g/ kijken naar sessions over de financieel situatie
-3. linken in koppeltabel similars
+3. linken in koppeltabel content
 4. recommandaties geven
 """
