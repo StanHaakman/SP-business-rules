@@ -6,7 +6,7 @@ from psycopg2.extensions import ISOLATION_LEVEL_AUTOCOMMIT
 from _functions.config import config
 
 
-def drop_database():
+def drop_database(dbname):
 
     # Configure parser for database.ini
     parser = ConfigParser()
@@ -20,16 +20,20 @@ def drop_database():
     except ValueError:
         pass
 
-    # Use config functie to get values from database.ini
-    db = config()
-    con = psycopg2.connect(**db)
-    cursor = con.cursor()
-    con.set_isolation_level(ISOLATION_LEVEL_AUTOCOMMIT)
-    drop_table_command = "DROP DATABASE huwebshop;"
-    cursor.execute(drop_table_command)
-    con.commit()
-    print('Database has been dropped')
-    con.close()
+    try:
+        # Use config functie to get values from database.ini
+        db = config()
+        con = psycopg2.connect(**db)
+        cursor = con.cursor()
+        con.set_isolation_level(ISOLATION_LEVEL_AUTOCOMMIT)
+        drop_table_command = f"DROP DATABASE {dbname};"
+        cursor.execute(drop_table_command)
+        con.commit()
+        print('Database has been dropped')
+        con.close()
+
+    except (Exception, psycopg2.DatabaseError) as error:
+        print(error)
 
 
 def create_database(dbname='huwebshop'):

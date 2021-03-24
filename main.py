@@ -13,7 +13,7 @@ Also give the name of the file u want to create.
 '''
 
 # Create and fill the database with the table structure
-drop_database()
+drop_database(dbname='huwebshop')
 create_database()
 fill_database()
 
@@ -39,11 +39,11 @@ print(filter_products.dataframe.isna().sum())
 absolutepath = os.getcwd()
 
 data_sender = DataSender()
-data_sender.copy_products_csv(pathname = absolutepath + "\products.csv")
+data_sender.copy_products_csv(pathname = absolutepath + "/products.csv")
 
 converter.visitors(fieldnames=['recommendations.segment', 'recommendations.latest_visit'], filename='visitors.csv')
 
-data_sender.copy_visitors_csv(pathname= absolutepath + "\visitors.csv")
+data_sender.copy_visitors_csv(pathname= absolutepath + "/visitors.csv")
 
 converter.sessions(fieldnames=['user_agent.identifier', 'session_start', 'session_end'], filename='sessions.csv')
 
@@ -51,4 +51,4 @@ filter_sessions = FilterSessions()
 filter_sessions.load_dataframe(filename='sessions.csv')
 filter_sessions.save_dataframe()
 
-data_sender.copy_sessions_csv(pathname=absolutepath + "\sessions.csv")
+data_sender.copy_sessions_csv(pathname=absolutepath + "/sessions.csv")
