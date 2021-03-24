@@ -26,6 +26,21 @@ class DataSender:
         con.commit()
         con.close()
 
+    def copy_products_properties_csv(self, pathname):
+        con = self.openconnection()
+        cur = con.cursor()
+
+        query = f"COPY properties( products_idproducts,properties )" \
+                f"FROM '{pathname}'" \
+                f"DELIMITER ','" \
+                f"CSV HEADER;"
+        try:
+            cur.execute(query)
+        except Exception as e:
+            print(e)
+        con.commit()
+        con.close()
+
     def copy_visitors_csv(self, pathname):
         con = self.openconnection()
         cur = con.cursor()

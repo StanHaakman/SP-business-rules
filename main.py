@@ -26,19 +26,19 @@ converter = Converter()
 #After that save the new data and print te amount of <null> values in the csv file to check if the filtering process worked.
 #'''
 
-#filter_products = FilterProducts()
+filter_products = FilterProducts()
 #filter_products.load_dataframe(filename='products.csv')
 #filter_products.replace_null(columns=['_id', 'name', 'brand', 'category', 'deeplink', 'fast_mover', 'gender', 'herhaalaankopen', 'selling_price', 'doelgroep'])
 #filter_products.replace_doelgroep()
 #filter_products.replace_gender(invalid=['Gezin', 'B2B', 'Kinderen', 'Senior', 'Baby', 'Grootverpakking', '8719497835768'])
-#filter_products.save_dataframe()
+#filter_products.save_dataframe(filename='products.csv')
 #print(filter_products.dataframe.isna().sum())
 
 ## Create sender and query the products
 
-#absolutepath = os.getcwd()
+absolutepath = os.getcwd()
 
-#data_sender = DataSender()
+data_sender = DataSender()
 #data_sender.copy_products_csv(pathname = absolutepath + "\products.csv")
 
 #converter.visitors(fieldnames=['recommendations.segment', 'recommendations.latest_visit'], filename='visitors.csv')
@@ -77,7 +77,8 @@ propertieslst = ["availability",
 
 for lst in propertieslst:
     converter.products(fieldnames=['_id', 'properties.{}'.format(lst)],filename='products_properties_{}.csv'.format(lst))
-
-    
-    
+    filter_products.load_dataframe(filename='products_properties_{}.csv'.format(lst))
+    filter_products.drop_null(lst)
+    filter_products.save_dataframe(filename='products_properties_{}.csv'.format(lst))
+    data_sender.copy_products_properties_csv(pathname = absolutepath + "\products_properties_{}.csv".format(lst))
     pass
