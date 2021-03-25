@@ -90,3 +90,5 @@ filter_sessions.drop_duplicates(['buid'])
 filter_sessions.replace_buids()
 filter_sessions.save_dataframe(filename='sessions_buids.csv')
 data_sender.copy_sessions_buids_csv(pathname = absolutepath + "\sessions_buids.csv")
+
+# for buids need update function
