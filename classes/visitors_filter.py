@@ -1,6 +1,7 @@
 from ast import literal_eval
 from dateutil import parser
 import pandas as pd
+import numpy as np
 
 # Pandas dataframe volledig weergeven.
 pd.set_option('display.max_rows', None, 'display.max_columns', None,
