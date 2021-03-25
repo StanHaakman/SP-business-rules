@@ -104,6 +104,8 @@ DROP TABLE IF EXISTS orders CASCADE ;
 CREATE TABLE IF NOT EXISTS orders (
   Products_idProducts VARCHAR(255) NOT NULL,
   Sessions_idSessions VARCHAR NOT NULL,
+  has_been_sold BOOLEAN NULL,
+  is_in_cart BOOLEAN NULL,
   Amount INT NOT NULL,
   CONSTRAINT fk_orders_Products1
     FOREIGN KEY (Products_idProducts)
