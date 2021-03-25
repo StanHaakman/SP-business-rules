@@ -71,7 +71,7 @@ class DataSender:
         con = self.openconnection()
         cur = con.cursor()
 
-        query = f"COPY buids( buids )" \
+        query = f"COPY buids( buids, sessions_idsessions )" \
                 f"FROM '{pathname}'" \
                 f"DELIMITER ','" \
                 f"CSV HEADER;"

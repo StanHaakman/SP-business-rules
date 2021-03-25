@@ -68,7 +68,7 @@ DROP TABLE IF EXISTS Buids CASCADE ;
 CREATE TABLE IF NOT EXISTS Buids (
   buids VARCHAR(255) NOT NULL,
   Visitors_idVisitors INT NULL,
-  Sessions_idSessions VARCHAR NOT NULL,
+  Sessions_idSessions VARCHAR NULL,
   PRIMARY KEY (buids),
   CONSTRAINT fk_Buids_Visitors
     FOREIGN KEY (Visitors_idVisitors)

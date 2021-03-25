@@ -83,7 +83,7 @@ data_sender.copy_sessions_csv(pathname=absolutepath + "\sessions.csv")
 #    data_sender.copy_products_properties_csv(pathname = absolutepath + "\products_properties_{}.csv".format(lst))
 #    pass
 
-converter.sessions(fieldnames=['buid'],filename='sessions_buids.csv')
+converter.sessions(fieldnames=['buid','_id'],filename='sessions_buids.csv')
 filter_sessions.load_dataframe(filename='sessions_buids.csv')
 filter_sessions.drop_null('buid')
 filter_sessions.save_dataframe(filename='sessions_buids.csv')
