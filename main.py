@@ -31,7 +31,7 @@ filter_products.load_dataframe(filename='products.csv')
 filter_products.replace_null(columns=['_id', 'name', 'brand', 'category', 'deeplink', 'fast_mover', 'gender', 'herhaalaankopen', 'selling_price', 'doelgroep'])
 filter_products.replace_doelgroep()
 filter_products.replace_gender(invalid=['Gezin', 'B2B', 'Kinderen', 'Senior', 'Baby', 'Grootverpakking', '8719497835768'])
-filter_products.save_dataframe()
+filter_products.save_dataframe(filename='products.csv')
 print(filter_products.dataframe.isna().sum())
 
 # Create sender and query the products
@@ -43,12 +43,52 @@ data_sender.copy_products_csv(pathname = absolutepath + "\products.csv")
 
 converter.visitors(fieldnames=['recommendations.segment', 'recommendations.latest_visit'], filename='visitors.csv')
 
-data_sender.copy_visitors_csv(pathname= absolutepath + "\visitors.csv")
+data_sender.copy_visitors_csv(pathname= absolutepath + "/visitors.csv")
 
-converter.sessions(fieldnames=['user_agent.identifier', 'session_start', 'session_end'], filename='sessions.csv')
+converter.sessions(fieldnames=['_id','user_agent.identifier', 'session_start', 'session_end'], filename='sessions.csv')
 
 filter_sessions = FilterSessions()
 filter_sessions.load_dataframe(filename='sessions.csv')
 filter_sessions.save_dataframe()
 
 data_sender.copy_sessions_csv(pathname=absolutepath + "\sessions.csv")
+
+#propertieslst = [
+#                 "bundel_sku",
+#                 "doelgroep",
+#                 "eenheid",
+#                 "factor",
+#                 "gebruik",
+#                 "geschiktvoor",
+#                 "geursoort",
+#                 "huidconditie",
+#                 "huidtype",
+#                 "huidtypegezicht",
+#                 "kleur",
+#                 "leeftijd",
+#                 "sterkte",
+#                 "type",
+#                 "variant",
+#                 "waterproof",
+#                 "folder_actief",
+#                 "soort",
+#                 "inhoud"
+#                 ]
+
+#for lst in propertieslst:
+#    converter.products(fieldnames=['_id', 'properties.{}'.format(lst)],filename='products_properties_{}.csv'.format(lst))
+#    filter_products.load_dataframe(filename='products_properties_{}.csv'.format(lst))
+#    filter_products.drop_null(lst)
+#    filter_products.save_dataframe(filename='products_properties_{}.csv'.format(lst))
+#    data_sender.copy_products_properties_csv(pathname = absolutepath + "\products_properties_{}.csv".format(lst))
+#    pass
+
+converter.sessions(fieldnames=['buid','_id'],filename='sessions_buids.csv')
+filter_sessions.load_dataframe(filename='sessions_buids.csv')
+filter_sessions.drop_null('buid')
+filter_sessions.drop_duplicates(['buid'])
+filter_sessions.replace_buids()
+filter_sessions.save_dataframe(filename='sessions_buids.csv')
+data_sender.copy_sessions_buids_csv(pathname = absolutepath + "\sessions_buids.csv")
+
+# for buids need update function
