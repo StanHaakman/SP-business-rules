@@ -28,3 +28,8 @@ class FilterSessions:
     def replace_null(self, columns, replacement='onbekend'):
         for column in columns:
             self.dataframe[column] = self.dataframe[column].replace(np.nan, replacement, regex=True)
+
+    def drop_null(self,columm_name):
+        self.dataframe = self.dataframe.dropna(subset=[columm_name])
+        print(self.dataframe.isna().sum())
+        pass
