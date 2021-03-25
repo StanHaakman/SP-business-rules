@@ -68,7 +68,7 @@ class Converter:
         :param filename:
         :return:
         '''
-        collection = self.database.visitors
+        collection = self.database.profiles
         self.mongo_to_csv(fieldnames, filename, collection)
 
     def sessions(self, fieldnames, filename):

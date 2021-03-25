@@ -13,7 +13,7 @@ Also give the name of the file u want to create.
 '''
 
 # Create and fill the database with the table structure
-drop_database()
+drop_database(dbname='huwebshop')
 create_database()
 fill_database()
 

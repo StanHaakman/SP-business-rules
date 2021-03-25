@@ -25,6 +25,9 @@ class FilterSessions:
         buid = buid.str.strip("[']")
         self.dataframe['buid'] = buid
 
+    def replace_to_json(self):
+        self.dataframe.to_json(orient='records')
+
     def replace_null(self, columns, replacement='onbekend'):
         for column in columns:
             self.dataframe[column] = self.dataframe[column].replace(np.nan, replacement, regex=True)
