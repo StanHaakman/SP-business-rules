@@ -2,7 +2,7 @@ import os
 import time
 
 from _functions.setup_database import create_database, fill_database, drop_database
-from classes.poducts_filter import FilterProducts
+from classes.products_filter import FilterProducts
 from classes.pymongo_converter import Converter
 from classes.send_data import DataSender
 from classes.sessions_filter import FilterSessions
