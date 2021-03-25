@@ -45,7 +45,7 @@ converter.visitors(fieldnames=['recommendations.segment', 'recommendations.lates
 
 data_sender.copy_visitors_csv(pathname= absolutepath + "/visitors.csv")
 
-converter.sessions(fieldnames=['user_agent.identifier', 'session_start', 'session_end'], filename='sessions.csv')
+converter.sessions(fieldnames=['_id','user_agent.identifier', 'session_start', 'session_end'], filename='sessions.csv')
 
 filter_sessions = FilterSessions()
 filter_sessions.load_dataframe(filename='sessions.csv')

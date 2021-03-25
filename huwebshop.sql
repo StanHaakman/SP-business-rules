@@ -52,7 +52,7 @@ CREATE TABLE IF NOT EXISTS Visitors (
 DROP TABLE IF EXISTS Sessions CASCADE ;
 
 CREATE TABLE IF NOT EXISTS Sessions (
-  idSessions SERIAL NOT NULL,
+  idSessions VARCHAR NOT NULL,
   identifier VARCHAR NULL,
   sessie_start TIMESTAMP NULL,
   sessie_end TIMESTAMP NULL,
@@ -67,8 +67,8 @@ DROP TABLE IF EXISTS Buids CASCADE ;
 
 CREATE TABLE IF NOT EXISTS Buids (
   buids VARCHAR(255) NOT NULL,
-  Visitors_idVisitors SERIAL NOT NULL,
-  Sessions_idSessions SERIAL NOT NULL,
+  Visitors_idVisitors INT NULL,
+  Sessions_idSessions VARCHAR NOT NULL,
   PRIMARY KEY (buids),
   CONSTRAINT fk_Buids_Visitors
     FOREIGN KEY (Visitors_idVisitors)
@@ -85,7 +85,7 @@ DROP TABLE IF EXISTS  events CASCADE ;
 
 CREATE TABLE IF NOT EXISTS events (
   Products_idProducts VARCHAR(255) NOT NULL,
-  Sessions_idSessions SERIAL NOT NULL,
+  Sessions_idSessions VARCHAR NOT NULL,
   Event VARCHAR(255) NULL,
   CONSTRAINT fk_events_Products1
     FOREIGN KEY (Products_idProducts)
@@ -103,7 +103,7 @@ DROP TABLE IF EXISTS orders CASCADE ;
 
 CREATE TABLE IF NOT EXISTS orders (
   Products_idProducts VARCHAR(255) NOT NULL,
-  Sessions_idSessions SERIAL NOT NULL,
+  Sessions_idSessions VARCHAR NOT NULL,
   Amount INT NOT NULL,
   CONSTRAINT fk_orders_Products1
     FOREIGN KEY (Products_idProducts)
@@ -205,7 +205,7 @@ DROP TABLE IF EXISTS  Has_sale CASCADE;
 
 create type TypeSales as enum ('Korting', '1Plus1');
 CREATE TABLE IF NOT EXISTS Has_sale (
-  Sessions_idSessions SERIAL NOT NULL,
+  Sessions_idSessions VARCHAR NOT NULL,
   Products_idProducts VARCHAR(255) NOT NULL,
   TypeSale TypeSales NULL,
   AmountKorting INT NULL,
