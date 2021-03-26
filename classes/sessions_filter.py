@@ -39,7 +39,7 @@ class FilterSessions:
         pass
     
     def drop_duplicates(self,columm_name):
-        self.dataframe = self.dataframe.drop_duplicates(subset=columm_name)
+        self.dataframe.dropna(subset=[columm_name], inplace=True)
 
     def has_filter(self):
 
