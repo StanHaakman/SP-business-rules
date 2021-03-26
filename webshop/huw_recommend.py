@@ -35,6 +35,48 @@ class Recom(Resource):
         prodids = list(map(lambda x: x['_id'], list(randcursor)))
         return prodids, 200
 
+    def getPopularID(self):
+
+        DataSenderObject = DataSender()
+        con = DataSenderObject.openconnection()
+        cur = con.cursor()
+
+        idDict = {}
+
+        query = "SELECT products_idproducts FROM orders a " \
+                "FULL JOIN sessions c ON a.sessions_idsessions = c.idsessions " \
+                "FULL JOIN has_sale g ON c.idsessions = g.sessions_idsessions " \
+                "WHERE (has_sale = true)"
+
+        cur.execute(query)
+        con.commit()
+        items = cur.fetchall()
+        print(items)
+        newitems = list(itertools.chain(*items))
+        print(newitems)
+
+        for i in newitems:
+            if i not in idDict.keys():
+                idDict[i] = 1
+            else:
+                idDict[i] += 1
+
+        # sorteer de dictionary op hoogste values
+        sorted_idDict = dict(sorted(idDict.items(), key=operator.itemgetter(1), reverse=True))
+
+        # selecteer producten in mongodb
+        cursor = database.products.aggregate([{_id: {"$in": [aggregateIDClause(sorted_idDict)]}}])
+        prodids = list(map(lambda x: x['_id'], list(cursor)))
+
+        return prodids, 200
+
+    def aggregateIDClause(itemID):
+        """selects the first 4 ID's in a dictionary"""
+        for i in range(1):
+            clause = "'{}', '{}', '{}', '{}'".format(itemID.keys(i), itemID.keys(i + 1), itemID.keys(i + 2),
+                                                     itemID.keys(i + 3))
+
+
 # This method binds the Recom class to the REST API, to parse specifically
 # requests in the format described below.
 api.add_resource(Recom, "/<string:profileid>/<int:count>")
