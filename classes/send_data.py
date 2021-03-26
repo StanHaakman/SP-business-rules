@@ -79,5 +79,17 @@ class DataSender:
         cur.execute(query)
         con.commit()
         con.close()
-    
+
+    def copy_sessions_has_sale_csv(self, pathname):
+        con = self.openconnection()
+        cur = con.cursor()
+
+        query = f"COPY orders(Products_idProducts, Sessions_idSessions, has_been_sold)" \
+                f"FROM '{pathname}'" \
+                f"DELIMITER ','" \
+                f"CSV HEADER;"
+
+        cur.execute(query)
+        con.commit()
+        con.close()
    

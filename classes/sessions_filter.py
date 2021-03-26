@@ -1,5 +1,6 @@
 import pandas as pd
 import numpy as np
+import json
 
 
 class FilterSessions:
@@ -39,3 +40,26 @@ class FilterSessions:
     
     def drop_duplicates(self,columm_name):
         self.dataframe = self.dataframe.drop_duplicates(subset=columm_name)
+
+    def has_filter(self):
+
+        # Get indexes where name column has value john
+        indexNames = self.dataframe[self.dataframe['has_sale'] == False].index
+
+        # Delete these row indexes from dataFrame
+        self.dataframe.drop(indexNames, inplace=True)
+
+    def fix_alles(self, filename):
+
+        df = pd.read_csv(filename)
+
+        products_list = []
+        for i in df['products']:
+            products_list.append(i)
+
+        new_lst = []
+        for j in products_list:
+            res = [json.loads(idx.replace("'", '"')) for idx in j]
+            new_lst.append(res)
+
+        df['products'] = new_lst
