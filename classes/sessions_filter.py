@@ -30,7 +30,7 @@ class FilterSessions:
             self.dataframe[column] = self.dataframe[column].replace(np.nan, replacement, regex=True)
 
     def drop_null(self,columm_name):
-        self.dataframe = self.dataframe.dropna(subset=[columm_name])
+        self.dataframe.dropna(subset=[columm_name], inplace=True)
         print(self.dataframe.isna().sum())
         pass
     
