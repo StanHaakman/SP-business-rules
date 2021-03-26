@@ -33,6 +33,11 @@ class FilterProducts:
         for invalid_item in invalid:
             self.dataframe['gender'] = self.dataframe['gender'].where(self.dataframe['gender'] != invalid_item, replacement)
 
-    def save_dataframe(self):
-        self.dataframe.to_csv('products.csv', index=False)  # opslaan naar csv
+    def save_dataframe(self,filename):
+        self.dataframe.to_csv(filename, index=False)  # opslaan naar csv
         print('CSV bestand opgeslagen')
+
+    def drop_null(self,columm_name):
+        self.dataframe = self.dataframe.dropna(subset=[columm_name])
+        print(self.dataframe.isna().sum())
+        pass
