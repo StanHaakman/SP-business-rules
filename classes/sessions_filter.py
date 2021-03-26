@@ -38,7 +38,7 @@ class FilterSessions:
         print(self.dataframe.isna().sum())
         pass
     
-    def drop_duplicates(self,columm_names):
+    def drop_duplicates(self,column_names):
         self.dataframe.drop_duplicates(subset=[column_names], keep='first', inplace=True)
 
     def has_filter(self):
