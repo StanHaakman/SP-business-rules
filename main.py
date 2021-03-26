@@ -94,10 +94,12 @@ filter_sessions = FilterSessions()
 
 converter.sessions(fieldnames=['has_sale', '_id', 'order.products'], filename='sessions_has_sale.csv')
 
-filter_sessions.load_dataframe(filename="sessions_has_sale.csv")
-filter_sessions.has_filter()
+filter_sessions_new = FilterSessions()
 
-filter_sessions.save_dataframe(filename="sessions_has_sale.csv")
+filter_sessions_new.load_dataframe(filename="sessions_has_sale.csv")
+filter_sessions_new.has_filter()
+filter_sessions_new.fix_alles()
+filter_sessions_new.save_dataframe(filename="sessions_has_sale.csv")
 
 print(getPopularID(filename="sessions_has_sale.csv"))
 

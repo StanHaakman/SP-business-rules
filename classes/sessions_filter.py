@@ -49,17 +49,17 @@ class FilterSessions:
         # Delete these row indexes from dataFrame
         self.dataframe.drop(indexNames, inplace=True)
 
-    def fix_alles(self, filename):
+    def fix_alles(self):
 
-        df = pd.read_csv(filename)
 
-        products_list = []
-        for i in df['products']:
-            products_list.append(i)
 
-        new_lst = []
-        for j in products_list:
-            res = [json.loads(idx.replace("'", '"')) for idx in j]
-            new_lst.append(res)
+        products_lst = []
+        for i in self.dataframe['products']:
+            temp_list = []
+            temp_list.append(i)
+            for j in temp_list:
+                res = [json.loads(idx.replace("'", '"')) for idx in j]
+                products_lst.append(res)
 
-        df['products'] = new_lst
+        self.dataframe['products'] = products_lst
+        print(self.dataframe['products'])
