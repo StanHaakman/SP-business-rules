@@ -92,4 +92,17 @@ class DataSender:
         cur.execute(query)
         con.commit()
         con.close()
+
+    def copy_sessions_buids_csv(self, pathname):
+        con = self.openconnection()
+        cur = con.cursor()
+
+        query = f"COPY buids( buids, sessions_idsessions )" \
+                f"FROM '{pathname}'" \
+                f"DELIMITER ','" \
+                f"CSV HEADER;"
+
+        cur.execute(query)
+        con.commit()
+        con.close()
    

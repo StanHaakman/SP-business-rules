@@ -66,9 +66,9 @@ CREATE TABLE IF NOT EXISTS Sessions (
 DROP TABLE IF EXISTS Buids CASCADE ;
 
 CREATE TABLE IF NOT EXISTS Buids (
-  buids VARCHAR(255) NOT NULL,
-  Visitors_idVisitors INT NULL,
+  buids VARCHAR NOT NULL,
   Sessions_idSessions VARCHAR NULL,
+  Visitors_idVisitors INT NULL,
   PRIMARY KEY (buids),
   CONSTRAINT fk_Buids_Visitors
     FOREIGN KEY (Visitors_idVisitors)
@@ -105,6 +105,7 @@ CREATE TABLE IF NOT EXISTS orders (
   Products_idProducts VARCHAR(255) NOT NULL,
   Sessions_idSessions VARCHAR NOT NULL,
   has_been_sold BOOLEAN NULL,
+  Amount INT NOT NULL,
   CONSTRAINT fk_orders_Products1
     FOREIGN KEY (Products_idProducts)
     REFERENCES Products (idProducts),

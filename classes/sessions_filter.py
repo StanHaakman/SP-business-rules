@@ -63,3 +63,6 @@ class FilterSessions:
             new_lst.append(res)
 
         df['products'] = new_lst
+
+    def drop_column(self, column_names):
+        self.dataframe.drop(column_names, axis='columns', inplace=True)
