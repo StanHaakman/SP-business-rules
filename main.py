@@ -7,6 +7,7 @@ from classes.pymongo_converter import Converter
 from classes.send_data import DataSender
 from classes.sessions_filter import FilterSessions
 from Rules.simple_reccomendation import getPopularID
+from classes.visitors_filter import FilterVisitors
 
 '''
 Create converter and select the wanted fieldnames.
@@ -14,10 +15,10 @@ Also give the name of the file u want to create.
 '''
 
 # Create and fill the database with the table structure
-# drop_database(dbname='huwebshop')
-# create_database()
-# fill_database()
-#
+drop_database(dbname='huwebshop')
+create_database()
+fill_database()
+
 converter = Converter()
 converter.products(fieldnames=['_id', 'name', 'brand', 'category', 'deeplink', 'properties.doelgroep', 'fast_mover', 'gender', 'herhaalaankopen', 'price.selling_price'], filename='products.csv')
 
@@ -63,23 +64,45 @@ absolutepath = os.getcwd()
 #                 "inhoud"
 #                 ]
 
+
+converter.visitors(fieldnames=['recommendations.segment', 'recommendations.latest_visit'], filename='visitors.csv')
+
+filter_visitors = FilterVisitors()
+filter_visitors.load_dataframe(filename='visitors.csv')
+filter_visitors.replace_type_visitors()
+filter_visitors.save_dataframe()
+
+data_sender.copy_visitors_csv(pathname=absolutepath + "/visitors.csv")
+
+
 data_sender = DataSender()
 data_sender.copy_products_csv(pathname = absolutepath + "/products.csv")
 
+
+converter.sessions(fieldnames=['_id', 'user_agent.identifier', 'session_start', 'session_end'], filename='sessions.csv')
+
 converter.sessions(fieldnames=['has_sale', '_id', 'order.products'], filename='sessions_has_sale.csv')
 
+
+filter_sessions = FilterSessions()
 filter_sessions.load_dataframe(filename="sessions_has_sale.csv")
 filter_sessions.has_filter()
-
 filter_sessions.save_dataframe(filename="sessions_has_sale.csv")
 
 data_sender.copy_visitors_csv(pathname= absolutepath + "/visitors.csv")
 
-converter.sessions(fieldnames=['_id', 'user_agent.identifier', 'session_start', 'session_end'], filename='sessions.csv')
 print(getPopularID(filename="sessions_has_sale.csv"))
 
 data_sender.copy_sessions_csv(pathname=absolutepath + "/sessions.csv")
 
+
+
+filter_sessions = FilterSessions()
+filter_sessions.load_dataframe(filename='sessions.csv')
+filter_sessions.replace_preferences()
+filter_sessions.save_dataframe()
+
+data_sender.copy_sessions_csv(pathname=absolutepath + "/sessions.csv")
 # propertieslst = [
 #                 "bundel_sku",
 #                 "doelgroep",
