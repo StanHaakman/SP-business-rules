@@ -2,35 +2,30 @@ import operator
 import psycopg2
 import itertools
 from _functions.config import config
+
 import pandas as pd
 
-def getPopularID(filename):
-
+def getPopularID(df):
 
     idDict = {}
 
-    df = pd.read_csv(filename)
-
-    products_list = []
-    for i in df['products']:
-        products_list.append(i)
+    result = df['products'].squeeze()
 
 
-    print(products_list)
+    for i in result:
 
+        print(i, type(i[0]['id']))
 
+        if i[0]['id'] not in idDict.keys():
+            idDict[i[0]['id']] = 1
+        else:
+            idDict[i[0]['id']] += 1
 
-    # for i in df['products']:
-    #     i = list(i)
-    #     for j in i:
-    #         if j not in idDict.keys():
-    #             idDict[j] = 1
-    #         else:
-    #             idDict[j] += 1
-    #
-    # sorted_idDict = dict(sorted(idDict.items(), key=operator.itemgetter(1), reverse=True))
-    #
-    # return sorted_idDict
+    sorted_idDict = dict(sorted(idDict.items(), key=operator.itemgetter(1), reverse=True))
+
+    print(idDict)
+
+    return idDict
 
 
 
