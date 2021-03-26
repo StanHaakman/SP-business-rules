@@ -105,7 +105,7 @@ converter = Converter()
 # buids_sender = DataSender()
 # buids_sender.copy_sessions_buids_csv(pathname=absolutepath + "/sessions_buids.csv")
 
-converter.sessions(fieldnames=['has_sale', '_id', 'order.products'], filename='sessions_has_sale.csv')
+# converter.sessions(fieldnames=['has_sale', '_id', 'order.products'], filename='sessions_has_sale.csv')
 
 filter_sessions_new = FilterSessions()
 
