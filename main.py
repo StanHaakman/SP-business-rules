@@ -39,6 +39,7 @@ filter_products.save_dataframe(filename='products.csv')
 print(filter_products.dataframe.isna().sum())
 
 # Create sender and query the products
+absolutepath = os.getcwd()
 
 #propertieslst = [
 #                 "bundel_sku",
