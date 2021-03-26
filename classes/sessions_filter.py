@@ -58,7 +58,7 @@ class FilterSessions:
             temp_list = []
             temp_list.append(i)
             for j in temp_list:
-                res = [json.loads(idx.replace("'", '"')) for idx in j]
+                res = list(eval(j))
                 products_lst.append(res)
 
         self.dataframe['products'] = products_lst
