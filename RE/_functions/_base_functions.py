@@ -1,6 +1,7 @@
 import psycopg2
 
 from psycopg2.extensions import ISOLATION_LEVEL_AUTOCOMMIT
+from psycopg2.extras import execute_batch
 
 from RE._functions.config import config
 
@@ -92,14 +93,15 @@ def store_data(store_query, data):
         print(error)
 
 
-def update_query(tablename, change_column_name, change_condition_name, change_condition, new_value):
+def update_many_query(tablename, change_column_name, change_condition_name, values):
     try:
         con = connect_to_db()
         cur = con.cursor()
 
-        sql = f""" UPDATE {tablename} SET {change_column_name} = %s WHERE {change_condition_name} = '%s'"""
+        # WORKING EXECUTE BATCH
+        sql = f" UPDATE {tablename} SET {change_column_name} = %s WHERE {change_condition_name} = %s"
 
-        cur.execute(sql % (new_value, change_condition))
+        execute_batch(cur, sql, values)
 
         con.commit()
         con.close()

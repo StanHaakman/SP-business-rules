@@ -1,7 +1,7 @@
 import os
 from sys import platform
 
-from RE._functions._base_functions import empty_db_table, update_query
+from RE._functions._base_functions import empty_db_table, update_many_query
 from RE.classes.profiles_filter import FilterProfiles
 from RE.classes.pymongo_converter import Converter
 from RE.classes.send_data import DataSender
@@ -14,7 +14,7 @@ converter = Converter()
 
 # converter.sessions(fieldnames=['buid', '_id', 'user_agent.identifier'], filename='sessions_buids.csv')
 
-converter.profiles(fieldnames=['_id', 'buids'], filename='profiles_buids.csv')
+# converter.profiles(fieldnames=['_id', 'buids'], filename='profiles_buids.csv')
 
 
 # Filter the sessions_buids.csv
@@ -40,8 +40,10 @@ tablename = 'buids'
 for i, idprofile in enumerate(visitor_buids['_id']):
     idvisitor = i + 1
     buids = list(eval(visitor_buids['buids'][i]))
+    values = []
     for buid in buids:
-        update_query(tablename=tablename, change_column_name='visitors_idvisitors', change_condition_name='buids', change_condition=buid, new_value=idvisitor)
+        values.append((idvisitor, buid))
+    update_many_query(tablename=tablename, change_column_name='visitors_idvisitors', change_condition_name='buids', values=values)
 
     if i % 10000 == 0:
         print('{} record stored...'.format(i))
