@@ -3,7 +3,7 @@ import psycopg2
 from configparser import ConfigParser
 from psycopg2.extensions import ISOLATION_LEVEL_AUTOCOMMIT
 
-from _functions.config import config
+from RE._functions.config import config
 
 
 def drop_database(dbname):

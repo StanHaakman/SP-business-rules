@@ -131,5 +131,9 @@ dmypy.json
 .idea
 .vs
 
-database.ini
+*.ini
 *.csv
+
+datasets/
+.flaskenv
+utilities/imageurls.csv

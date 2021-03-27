@@ -1,4 +1,4 @@
-from _functions.config import config
+from RE._functions.config import config
 import psycopg2
 import pandas as pd
 
