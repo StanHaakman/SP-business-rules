@@ -1,6 +1,8 @@
 import os
 from sys import platform
 
+from RE._functions._base_functions import empty_db_table, update_query
+from RE.classes.profiles_filter import FilterProfiles
 from RE.classes.pymongo_converter import Converter
 from RE.classes.send_data import DataSender
 from RE.classes.sessions_filter import FilterSessions
@@ -14,15 +16,35 @@ converter = Converter()
 
 converter.profiles(fieldnames=['_id', 'buids'], filename='profiles_buids.csv')
 
-filter_buids = FilterSessions()
-filter_buids.load_dataframe(filename=f'{CSV_location}sessions_buids.csv')
-filter_buids.drop_column(['identifier'])
-filter_buids.replace_buids()
-filter_buids.drop_null('buid')
-filter_buids.drop_duplicates('buid')
-filter_buids.save_dataframe(filename=f'{CSV_location}sessions_buids.csv')
+
+# Filter the sessions_buids.csv
+# filter_buids_sessions = FilterSessions()
+# filter_buids_sessions.load_dataframe(filename=f'{CSV_location}sessions_buids.csv')
+# filter_buids_sessions.drop_column(['identifier'])
+# filter_buids_sessions.replace_buids()
+# filter_buids_sessions.drop_null('buid')
+# filter_buids_sessions.drop_duplicates('buid')
+# filter_buids_sessions.save_dataframe(filename=f'{CSV_location}sessions_buids.csv')
+
+filter_buids_profiles = FilterProfiles()
+filter_buids_profiles.load_dataframe(filename=f'{CSV_location}profiles_buids.csv')
+filter_buids_profiles.drop_null(columm_names=['_id', 'buids'])
+filter_buids_profiles.drop_empty_buids()
+visitor_buids = filter_buids_profiles.filter_buids()
+filter_buids_profiles.save_dataframe(filename=f'{CSV_location}profiles_buids.csv')
 
 data_sender = DataSender()
 
-data_sender.copy_sessions_buids_csv(pathname=absolutepath + '{}{}sessions_buids.csv'.format('/' if platform == "darwin"
-                                                                                            else '\\',CSV_location))
+tablename = 'buids'
+
+for i, idprofile in enumerate(visitor_buids['_id']):
+    idvisitor = i + 1
+    buids = list(eval(visitor_buids['buids'][i]))
+    for buid in buids:
+        update_query(tablename=tablename, change_column_name='visitors_idvisitors', change_condition_name='buids', change_condition=buid, new_value=idvisitor)
+
+    if i % 10000 == 0:
+        print('{} record stored...'.format(i))
+
+# data_sender.copy_sessions_buids_csv(pathname=absolutepath + '{}{}sessions_buids.csv'.format('/' if platform == "darwin"
+#                                                                                             else '\\',CSV_location))

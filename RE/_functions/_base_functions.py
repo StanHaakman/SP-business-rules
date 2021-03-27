@@ -81,13 +81,28 @@ def store_data(store_query, data):
         cur = con.cursor()
 
         for item in data:
-            print(store_query, type(item))
             cur.execute(store_query % item)
 
         con.commit()
         con.close()
 
         print('Data stored in new table')
+
+    except (Exception, psycopg2.DatabaseError) as error:
+        print(error)
+
+
+def update_query(tablename, change_column_name, change_condition_name, change_condition, new_value):
+    try:
+        con = connect_to_db()
+        cur = con.cursor()
+
+        sql = f""" UPDATE {tablename} SET {change_column_name} = %s WHERE {change_condition_name} = '%s'"""
+
+        cur.execute(sql % (new_value, change_condition))
+
+        con.commit()
+        con.close()
 
     except (Exception, psycopg2.DatabaseError) as error:
         print(error)
