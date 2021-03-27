@@ -1,6 +1,6 @@
 import psycopg2
 
-from _functions.config import config
+from RE._functions.config import config
 
 
 class DataSender:
@@ -41,7 +41,7 @@ class DataSender:
         con.commit()
         con.close()
 
-    def copy_visitors_csv(self, pathname):
+    def copy_profiles_csv(self, pathname):
         con = self.openconnection()
         cur = con.cursor()
 

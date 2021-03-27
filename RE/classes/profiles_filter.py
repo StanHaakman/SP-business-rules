@@ -9,9 +9,9 @@ pd.set_option('display.max_rows', None, 'display.max_columns', None,
 # Pandas DataFrame wetenschappelijke notatie onderdrukken.
 pd.set_option('display.float_format', lambda x: '%.3f' % x)
 
-df = pd.read_csv('visitors.csv', encoding='utf-8')
+df = pd.read_csv('profiles.csv', encoding='utf-8')
 print(df.columns)
-print('Visitors-dataset is ingeladen en wordt nu bewerkt.')
+print('profiles-dataset is ingeladen en wordt nu bewerkt.')
 
 for kolom in ['first', 'latest']:
     lst = []
@@ -44,11 +44,11 @@ df = df[['visitor_id', 'products_gekocht', 'products_aantal_verkocht', 'products
          'klant_type', 'eerste_bezoek', 'laatste_bezoek', 'products_vergelijkbaar',
          'products_eerder_aanbevolen', 'aantal_paginas_bekeken', 'buids']]  # bepaal kolomvolgorde.
 
-df.to_csv('visitors.csv', index=False)  # opslaan naar csv
-print('Visitors-dataset is verbeterd en opgeslagen.')
+df.to_csv('profiles.csv', index=False)  # opslaan naar csv
+print('profiles-dataset is verbeterd en opgeslagen.')
 
 
-class FilterVisitors:
+class FilterProfiles:
     def __init__(self):
         print('Filter processen gestart!')
         # Pandas dataframe display completely
@@ -62,7 +62,7 @@ class FilterVisitors:
         # Pandas bestand inzelen
         self.dataframe = pd.read_csv(filename, encoding='utf-8')
 
-    def save_dataframe(self, filename='visitors.csv'):
+    def save_dataframe(self, filename='profiles.csv'):
         self.dataframe.to_csv(filename, index=False)  # opslaan naar csv
         print('CSV bestand opgeslagen')
 
