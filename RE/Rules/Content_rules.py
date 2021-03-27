@@ -11,7 +11,7 @@ pseudocode for content filtering
 2f/ variant pakken?
 2g/ aanbieding pakken/folder actief
 3. query analyseren
-4. visitors en products aan linken in koppeltabel similars
+4. profiles en products aan linken in koppeltabel similars
 5. recommendations geven
 
 """

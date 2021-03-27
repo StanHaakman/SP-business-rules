@@ -1,7 +1,7 @@
 """
 pseudocode for collab filtering
 
-1. visitors en sessions pakken
+1. profiles en sessions pakken
 2a type visitor
 2b/ events pakken
 2c/ similars
