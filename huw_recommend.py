@@ -1,3 +1,6 @@
+import itertools
+
+import psycopg2
 from flask import Flask, request, session, render_template, redirect, url_for, g
 from flask_restful import Api, Resource, reqparse
 import os
@@ -9,7 +12,7 @@ api = Api(app)
 
 # We define these variables to (optionally) connect to an external MongoDB
 # instance.
-envvals = ["MONGODBUSER","MONGODBPASSWORD","MONGODBSERVER"]
+envvals = ["MONGODBUSER", "MONGODBPASSWORD", "MONGODBSERVER"]
 dbstring = 'mongodb+srv://{0}:{1}@{2}/test?retryWrites=true&w=majority'
 
 # Since we are asked to pass a class rather than an instance of the class to the
@@ -21,7 +24,8 @@ if os.getenv(envvals[0]) is not None:
     client = MongoClient(dbstring.format(*envvals))
 else:
     client = MongoClient()
-database = client.huwebshop 
+database = client.huwebshop
+
 
 class Recom(Resource):
     """ This class represents the REST API that provides the recommendations for
@@ -31,22 +35,24 @@ class Recom(Resource):
     def get(self, profileid, count):
         """ This function represents the handler for GET requests coming in
         through the API. It currently returns a random sample of products. """
-        randcursor = database.products.aggregate([{ '$sample': { 'size': count } }])
+        randcursor = database.products.aggregate([{'$sample': {'size': count}}])
         prodids = list(map(lambda x: x['_id'], list(randcursor)))
         return prodids, 200
 
     def getPopularID(self):
-
-        DataSenderObject = DataSender()
-        con = DataSenderObject.openconnection()
+        # DataSenderObject = DataSender()
+        # con = DataSenderObject.openconnection()def connect_to_db():
+        con = psycopg2.connect(
+            host='localhost',
+            password='postgres',
+            user='postgres',
+            database='huwebshop'
+        )
         cur = con.cursor()
 
         idDict = {}
 
-        query = "SELECT products_idproducts FROM orders a " \
-                "FULL JOIN sessions c ON a.sessions_idsessions = c.idsessions " \
-                "FULL JOIN has_sale g ON c.idsessions = g.sessions_idsessions " \
-                "WHERE (has_sale = true)"
+        query = "SELECT * FROM popular_products"
 
         cur.execute(query)
         con.commit()
@@ -55,17 +61,8 @@ class Recom(Resource):
         newitems = list(itertools.chain(*items))
         print(newitems)
 
-        for i in newitems:
-            if i not in idDict.keys():
-                idDict[i] = 1
-            else:
-                idDict[i] += 1
-
-        # sorteer de dictionary op hoogste values
-        sorted_idDict = dict(sorted(idDict.items(), key=operator.itemgetter(1), reverse=True))
-
         # selecteer producten in mongodb
-        cursor = database.products.aggregate([{_id: {"$in": [aggregateIDClause(sorted_idDict)]}}])
+        cursor = database.products.aggregate([{'_id': {"$in": [self.aggregateIDClause(newitems)]}}])
         prodids = list(map(lambda x: x['_id'], list(cursor)))
 
         return prodids, 200
