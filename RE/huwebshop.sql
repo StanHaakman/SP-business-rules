@@ -39,7 +39,7 @@ CREATE TABLE IF NOT EXISTS Products (
 DROP TABLE IF EXISTS  Visitors CASCADE ;
 
 CREATE TABLE IF NOT EXISTS Visitors (
-  idVisitors SERIAL NOT NULL,
+  idVisitors VARCHAR NOT NULL,
   previously_recommended VARCHAR(255) NULL,
   TypeVisitors VARCHAR(255) NULL,
   latest_visit timestamp NULL,
@@ -68,7 +68,7 @@ DROP TABLE IF EXISTS Buids CASCADE ;
 CREATE TABLE IF NOT EXISTS Buids (
   buids VARCHAR NOT NULL,
   Sessions_idSessions VARCHAR NULL,
-  Visitors_idVisitors INT NULL,
+  Visitors_idVisitors VARCHAR NULL,
   PRIMARY KEY (buids),
   CONSTRAINT fk_Buids_Visitors
     FOREIGN KEY (Visitors_idVisitors)
@@ -121,7 +121,7 @@ CREATE TABLE IF NOT EXISTS orders (
 DROP TABLE IF EXISTS viewed_before CASCADE ;
 
 CREATE TABLE IF NOT EXISTS viewed_before (
-  Visitors_idVisitors SERIAL NOT NULL,
+  Visitors_idVisitors VARCHAR NOT NULL,
   Products_idProducts VARCHAR(255) NOT NULL,
   Timedate timestamp NULL,
   CONSTRAINT fk_viewed_before_Products1
@@ -172,7 +172,7 @@ CREATE TABLE IF NOT EXISTS Subcategory (
 DROP TABLE IF EXISTS  Similars CASCADE;
 
 CREATE TABLE IF NOT EXISTS Similars (
-  Visitors_idVisitors SERIAL NOT NULL,
+  Visitors_idVisitors VARCHAR NOT NULL,
   Products_idProducts VARCHAR(255) NOT NULL,
   CONSTRAINT fk_Similars_Visitors1
     FOREIGN KEY (Visitors_idVisitors)
@@ -188,7 +188,7 @@ CREATE TABLE IF NOT EXISTS Similars (
 DROP TABLE IF EXISTS  Content CASCADE;
 
 CREATE TABLE IF NOT EXISTS Content (
-  Visitors_idVisitors SERIAL NOT NULL,
+  Visitors_idVisitors VARCHAR NOT NULL,
   Products_idProducts VARCHAR(255) NOT NULL,
   CONSTRAINT fk_Similars_Visitors1
     FOREIGN KEY (Visitors_idVisitors)
