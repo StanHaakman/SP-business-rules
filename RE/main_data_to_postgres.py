@@ -1,13 +1,13 @@
 import os
 from sys import platform
 
-from RE._functions.setup_database import create_database, fill_database, drop_database
-from RE.classes.products_filter import FilterProducts
-from RE.classes.pymongo_converter import Converter
-from RE.classes.send_data import DataSender
+from _functions.setup_database import create_database, fill_database, drop_database
+from classes.products_filter import FilterProducts
+from classes.pymongo_converter import Converter
+from classes.send_data import DataSender
 
 
-CSV_location = 'CSV/' if platform == "darwin" else "CSV\\"
+CSV_location = 'RE/CSV/' if platform == "darwin" else "RE\\CSV\\"
 
 absolutepath = os.getcwd()
 
@@ -21,7 +21,7 @@ converter = Converter()
 converter.products(fieldnames=['_id', 'name', 'brand', 'category', 'deeplink', 'properties.doelgroep', 'fast_mover', 'gender', 'herhaalaankopen', 'price.selling_price'], filename='products.csv')
 
 converter.profiles(fieldnames=['recommendations.segment', 'recommendations.latest_visit'], filename='profiles.csv')
-#
+
 converter.sessions(fieldnames=['_id', 'user_agent.identifier', 'session_start', 'session_end'], filename='sessions.csv')
 
 '''
@@ -43,7 +43,7 @@ filter_products.save_dataframe(filename=f'{CSV_location}products.csv')
 
 # Create sender and copy the main files
 data_sender = DataSender()
-data_sender.copy_products_csv(pathname=absolutepath + '{}{}products.csv'.format('/' if platform == "darwin" else '\\',
+data_sender.copy_products_csv(pathname=absolutepath + '{}{}products.csv'.format('/' if platform == "darwin" else "\\",
                                                                                 CSV_location))
 
 data_sender.copy_profiles_csv(pathname=absolutepath + '{}{}profiles.csv'.format('/' if platform == "darwin" else '\\',

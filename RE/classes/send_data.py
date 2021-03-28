@@ -1,6 +1,6 @@
 import psycopg2
 
-from RE._functions.config import config
+from _functions.config import config
 
 
 class DataSender:

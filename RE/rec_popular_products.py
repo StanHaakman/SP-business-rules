@@ -2,11 +2,11 @@ import operator
 import os
 from sys import platform
 
-from RE._functions._base_functions import create_table, store_data, empty_db_table
-from RE.classes.pymongo_converter import Converter
-from RE.classes.sessions_filter import FilterSessions
+from _functions._base_functions import create_table, store_data, empty_db_table
+from classes.pymongo_converter import Converter
+from classes.sessions_filter import FilterSessions
 
-CSV_location = 'CSV/' if platform == "darwin" else "CSV\\"
+CSV_location = 'RE/CSV/' if platform == "darwin" else "RE\\CSV\\"
 absolutepath = os.getcwd()
 
 

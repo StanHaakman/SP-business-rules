@@ -3,7 +3,7 @@ import psycopg2
 from psycopg2.extensions import ISOLATION_LEVEL_AUTOCOMMIT
 from psycopg2.extras import execute_batch
 
-from RE._functions.config import config
+from _functions.config import config
 
 
 def drop_table(tablename):

@@ -1,13 +1,13 @@
 import os
 from sys import platform
 
-from RE._functions._base_functions import empty_db_table, update_many_query
-from RE.classes.profiles_filter import FilterProfiles
-from RE.classes.pymongo_converter import Converter
-from RE.classes.send_data import DataSender
-from RE.classes.sessions_filter import FilterSessions
+from _functions._base_functions import empty_db_table, update_many_query
+from classes.profiles_filter import FilterProfiles
+from classes.pymongo_converter import Converter
+from classes.send_data import DataSender
+from classes.sessions_filter import FilterSessions
 
-CSV_location = 'CSV/' if platform == "darwin" else "CSV\\"
+CSV_location = 'RE/CSV/' if platform == "darwin" else "RE\\CSV\\"
 absolutepath = os.getcwd()
 
 converter = Converter()
@@ -37,6 +37,8 @@ data_sender = DataSender()
 
 tablename = 'buids'
 
+data_sender.copy_sessions_buids_csv(pathname=absolutepath + '{}{}sessions_buids.csv'.format('/' if platform == "darwin"
+                                                                                            else '\\', CSV_location))
 for i, idprofile in enumerate(visitor_buids['_id']):
     idvisitor = i + 1
     buids = list(eval(visitor_buids['buids'][i]))
@@ -48,5 +50,3 @@ for i, idprofile in enumerate(visitor_buids['_id']):
     if i % 10000 == 0:
         print('{} record stored...'.format(i))
 
-data_sender.copy_sessions_buids_csv(pathname=absolutepath + '{}{}sessions_buids.csv'.format('/' if platform == "darwin"
-                                                                                            else '\\', CSV_location))
