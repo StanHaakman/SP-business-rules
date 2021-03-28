@@ -49,4 +49,4 @@ for i, idprofile in enumerate(visitor_buids['_id']):
         print('{} record stored...'.format(i))
 
 data_sender.copy_sessions_buids_csv(pathname=absolutepath + '{}{}sessions_buids.csv'.format('/' if platform == "darwin"
-                                                                                            else '\\',CSV_location))
+                                                                                            else '\\', CSV_location))
