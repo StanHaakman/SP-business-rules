@@ -7,6 +7,7 @@ import os
 from pymongo import MongoClient
 from dotenv import load_dotenv
 
+
 app = Flask(__name__)
 api = Api(app)
 
@@ -32,11 +33,29 @@ class Recom(Resource):
     the webshop. At the moment, the API simply returns a random set of products
     to recommend."""
 
+    def get_data(self):
+        con = psycopg2.connect(
+            host='localhost',
+            password='Elvis&Presley',
+            user='postgres',
+            database='huwebshop'
+        )
+        cur = con.cursor()
+        query = "select idproducts from popular_products"
+        cur.execute(query)
+        con.commit()
+        row = list(cur.fetchall())
+        list_items = []
+        for i in row:
+            list_items.append(i[0])
+        con.close()
+        return list_items
+
     def get(self, profileid, count):
         """ This function represents the handler for GET requests coming in
         through the API. It currently returns a random sample of products. """
         randcursor = database.products.aggregate([{'$sample': {'size': count}}])
-        prodids = list(map(lambda x: x['_id'], list(randcursor)))
+        prodids = self.get_data()
         return prodids, 200
 
     def getPopularID(self):
@@ -67,7 +86,7 @@ class Recom(Resource):
 
         return prodids, 200
 
-    def aggregateIDClause(itemID):
+    def aggregateIDClause(self, itemID):
         """selects the first 4 ID's in a dictionary"""
         for i in range(1):
             clause = "'{}', '{}', '{}', '{}'".format(itemID.keys(i), itemID.keys(i + 1), itemID.keys(i + 2),

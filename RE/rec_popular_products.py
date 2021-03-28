@@ -16,13 +16,13 @@ def getPopularID(df):
     result = df['products'].squeeze()
 
     for i in result:
-        try:
-            if i[0]['id'] not in idDict.keys():
-                idDict[i[0]['id']] = 1
-            else:
-                idDict[i[0]['id']] += 1
-        except ValueError:
-            print(ValueError)
+        if not i:
+            print("List is empty")
+            continue
+        elif i[0]['id'] not in idDict.keys():
+            idDict[i[0]['id']] = 1
+        else:
+            idDict[i[0]['id']] += 1
 
     sorted_idDict = dict(sorted(idDict.items(), key=operator.itemgetter(1), reverse=True))
 
@@ -38,7 +38,7 @@ empty_db_table(tablename='popular_products')
 
 converter = Converter()
 
-converter.sessions(fieldnames=['has_sale', '_id', 'order.products'], filename='sessions_has_sale.csv')
+# converter.sessions(fieldnames=['has_sale', '_id', 'order.products'], filename='sessions_has_sale.csv')
 
 filter_sessions = FilterSessions()
 
