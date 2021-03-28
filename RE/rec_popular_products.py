@@ -16,10 +16,13 @@ def getPopularID(df):
     result = df['products'].squeeze()
 
     for i in result:
-        if i[0]['id'] not in idDict.keys():
-            idDict[i[0]['id']] = 1
-        else:
-            idDict[i[0]['id']] += 1
+        try:
+            if i[0]['id'] not in idDict.keys():
+                idDict[i[0]['id']] = 1
+            else:
+                idDict[i[0]['id']] += 1
+        except ValueError:
+            print(ValueError)
 
     sorted_idDict = dict(sorted(idDict.items(), key=operator.itemgetter(1), reverse=True))
 
