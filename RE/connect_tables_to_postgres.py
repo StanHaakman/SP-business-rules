@@ -35,6 +35,8 @@ filter_buids_profiles.save_dataframe(filename=f'{CSV_location}profiles_buids.csv
 
 data_sender = DataSender()
 
+data_sender.copy_sessions_buids_csv(pathname=absolutepath + '{}{}sessions_buids.csv'.format('/' if platform == "darwin"
+                                                                                         else '\\', CSV_location))
 tablename = 'buids'
 
 for i, idprofile in enumerate(visitor_buids['_id']):
@@ -47,6 +49,3 @@ for i, idprofile in enumerate(visitor_buids['_id']):
 
     if i % 10000 == 0:
         print('{} record stored...'.format(i))
-
-data_sender.copy_sessions_buids_csv(pathname=absolutepath + '{}{}sessions_buids.csv'.format('/' if platform == "darwin"
-                                                                                            else '\\', CSV_location))
