@@ -17,6 +17,9 @@ class FilterSessions:
         # Pandas bestand inzelen
         self.dataframe = pd.read_csv(filename, encoding='utf-8')
 
+    def get_dataframe(self):
+        return self.dataframe
+
     def save_dataframe(self, filename='sessions.csv'):
         self.dataframe.to_csv(filename, index=False)  # opslaan naar csv
         print('CSV bestand opgeslagen')

@@ -20,8 +20,8 @@ fill_database()
 converter = Converter()
 converter.products(fieldnames=['_id', 'name', 'brand', 'category', 'deeplink', 'properties.doelgroep', 'fast_mover', 'gender', 'herhaalaankopen', 'price.selling_price'], filename='products.csv')
 
-converter.profiles(fieldnames=['recommendations.segment', 'recommendations.latest_visit'], filename='profiles.csv')
-
+converter.profiles(fieldnames=['_id', 'recommendations.segment', 'recommendations.latest_visit'], filename='profiles.csv')
+#
 converter.sessions(fieldnames=['_id', 'user_agent.identifier', 'session_start', 'session_end'], filename='sessions.csv')
 
 '''
@@ -40,6 +40,11 @@ filter_products.replace_doelgroep()
 filter_products.replace_gender(
     invalid=['Gezin', 'B2B', 'Kinderen', 'Senior', 'Baby', 'Grootverpakking', '8719497835768'])
 filter_products.save_dataframe(filename=f'{CSV_location}products.csv')
+
+filter_profiles = FilterProfiles()
+filter_profiles.load_dataframe(filename=f'{CSV_location}profiles.csv')
+filter_profiles.drop_null(column_names=['_id', 'segment', 'latest_visit'])
+filter_profiles.save_dataframe()
 
 # Create sender and copy the main files
 data_sender = DataSender()
