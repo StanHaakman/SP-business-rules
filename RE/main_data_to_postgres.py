@@ -19,9 +19,9 @@ fill_database()
 
 # Convert the main database content
 converter = Converter()
-converter.products(fieldnames=['_id', 'name', 'brand', 'category', 'deeplink', 'properties.doelgroep', 'fast_mover', 'gender', 'herhaalaankopen', 'price.selling_price'], filename='products.csv')
+converter.products(fieldnames=['_id', 'name', 'brand', 'category', 'deeplink', 'properties.doelgroep', 'fast_mover', 'gender', 'herhaalaankopen', 'price.selling_price', 'properties.folder_actief'], filename='products.csv')
 
-converter.profiles(fieldnames=['_id', 'recommendations.segment', 'recommendations.latest_visit'], filename='profiles.csv')
+converter.profiles(fieldnames=['_id', 'recommendations.segment',  'previously_recommended'], filename='profiles.csv')
 #
 converter.sessions(fieldnames=['_id', 'user_agent.identifier', 'session_start', 'session_end'], filename='sessions.csv')
 
