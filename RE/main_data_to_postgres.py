@@ -3,6 +3,7 @@ from sys import platform
 
 from _functions.setup_database import create_database, fill_database, drop_database
 from classes.products_filter import FilterProducts
+from classes.profiles_filter import FilterProfiles
 from classes.pymongo_converter import Converter
 from classes.send_data import DataSender
 

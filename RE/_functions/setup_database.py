@@ -24,7 +24,6 @@ def drop_database(dbname):
     try:
         # Use config functie to get values from database.ini
         db = config()
-        print(db)
         con = psycopg2.connect(**db)
         cursor = con.cursor()
         con.set_isolation_level(ISOLATION_LEVEL_AUTOCOMMIT)
