@@ -10,7 +10,7 @@ def drop_database(dbname):
 
     # Configure parser for database.ini
     parser = ConfigParser()
-    parser.read('database.ini')
+    parser.read('RE/database.ini')
 
     # If Database line exists remove it otherwise pass
     try:
@@ -18,11 +18,13 @@ def drop_database(dbname):
         with open('database.ini', 'w') as configFile:
             parser.write(configFile)
     except ValueError:
+        print(ValueError)
         pass
 
     try:
         # Use config functie to get values from database.ini
         db = config()
+        print(db)
         con = psycopg2.connect(**db)
         cursor = con.cursor()
         con.set_isolation_level(ISOLATION_LEVEL_AUTOCOMMIT)
@@ -50,7 +52,7 @@ def create_database(dbname='huwebshop'):
     # If Database line exists remove it otherwise pass
     try:
         parser.remove_option('postgresql', 'database')
-        with open('RE/database.ini', 'w') as configFile:
+        with open('database.ini', 'w') as configFile:
             parser.write(configFile)
     except ValueError:
         pass
