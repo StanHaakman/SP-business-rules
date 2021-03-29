@@ -40,9 +40,9 @@ DROP TABLE IF EXISTS  Visitors CASCADE ;
 
 CREATE TABLE IF NOT EXISTS Visitors (
   idVisitors VARCHAR NOT NULL,
-  previously_recommended VARCHAR(255) NULL,
+  previously_recommended VARCHAR NULL,
   TypeVisitors VARCHAR(255) NULL,
-  latest_visit timestamp NULL,
+    order_ids VARCHAR NULL,
   PRIMARY KEY (idVisitors))
 ;
 
