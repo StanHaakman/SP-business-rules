@@ -62,8 +62,11 @@ class FilterProfiles:
         # Pandas bestand inzelen
         self.dataframe = pd.read_csv(filename, encoding='utf-8')
 
-    def drop_null(self, columm_names):
-        self.dataframe.dropna(subset=columm_names, inplace=True)
+    def drop_null(self, column_names):
+        self.dataframe.dropna(subset=column_names, inplace=True)
+
+    def drop_columns(self, column_names):
+        self.dataframe.drop(column_names, axis='columns', inplace=True)
 
     def save_dataframe(self, filename='profiles.csv'):
         self.dataframe.to_csv(filename, index=False)  # opslaan naar csv
