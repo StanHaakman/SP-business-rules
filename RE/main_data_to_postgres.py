@@ -19,10 +19,10 @@ fill_database()
 
 # Convert the main database content
 converter = Converter()
-converter.products(fieldnames=['_id', 'name', 'brand', 'category', 'deeplink', 'properties.doelgroep', 'fast_mover', 'gender', 'herhaalaankopen', 'price.selling_price', 'properties.folder_actief'], filename='products.csv')
+converter.products(fieldnames=['_id', 'name', 'brand', 'category', 'sub_category', 'deeplink', 'properties.doelgroep', 'fast_mover', 'gender', 'herhaalaankopen', 'price.selling_price', 'properties.folder_actief'], filename='products.csv')
 
-converter.profiles(fieldnames=['_id', 'recommendations.segment',  'previously_recommended'], filename='profiles.csv')
-#
+converter.profiles(fieldnames=['_id', 'recommendations.segment',  'previously_recommended', 'order'], filename='profiles.csv')
+
 converter.sessions(fieldnames=['_id', 'user_agent.identifier', 'session_start', 'session_end'], filename='sessions.csv')
 
 '''
@@ -44,7 +44,7 @@ filter_products.save_dataframe(filename=f'{CSV_location}products.csv')
 
 filter_profiles = FilterProfiles()
 filter_profiles.load_dataframe(filename=f'{CSV_location}profiles.csv')
-filter_profiles.drop_null(column_names=['_id', 'segment', 'latest_visit'])
+filter_profiles.drop_null(column_names=['_id', 'segment'])
 filter_profiles.save_dataframe()
 
 # Create sender and copy the main files

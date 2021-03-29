@@ -22,6 +22,7 @@ CREATE TABLE IF NOT EXISTS Products (
   name VARCHAR(255) NULL,
   brand VARCHAR(255) NULL,
   category VARCHAR(255) NULL,
+    sub_category VARCHAR(255) NULL,
   deeplink VARCHAR(255) NULL,
   doelgroep VARCHAR(255) NULL,
   fastmover BOOLEAN NULL,
@@ -29,6 +30,7 @@ CREATE TABLE IF NOT EXISTS Products (
   herhaalaankopen BOOLEAN NULL,
   price DECIMAL NULL,
   stocklevel INT NULL,
+    folder_actief VARCHAR null,
   PRIMARY KEY (idProducts))
 ;
 
@@ -42,7 +44,7 @@ CREATE TABLE IF NOT EXISTS Visitors (
   idVisitors VARCHAR NOT NULL,
   previously_recommended VARCHAR NULL,
   TypeVisitors VARCHAR(255) NULL,
-    order_ids VARCHAR NULL,
+    orders VARCHAR NULL,
   PRIMARY KEY (idVisitors))
 ;
 
