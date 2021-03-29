@@ -45,7 +45,7 @@ class DataSender:
         con = self.openconnection()
         cur = con.cursor()
 
-        query = f"COPY visitors(idVisitors, previously_recommended, TypeVisitors, orders )" \
+        query = f"COPY visitors(idVisitors, TypeVisitors, previously_recommended, orders )" \
                 f"FROM '{pathname}'" \
                 f"DELIMITER ','" \
                 f"CSV HEADER;"
