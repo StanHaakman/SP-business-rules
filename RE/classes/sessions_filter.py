@@ -51,10 +51,12 @@ class FilterSessions:
 
     def fix_alles(self):
 
-
+        lst = []
+        for i in self.dataframe['products']:
+            lst.append(i)
 
         products_lst = []
-        for i in self.dataframe['products']:
+        for i in lst:
             temp_list = []
             temp_list.append(i)
             for j in temp_list:
@@ -62,4 +64,8 @@ class FilterSessions:
                 products_lst.append(res)
 
         self.dataframe['products'] = products_lst
-        print(self.dataframe['products'])
+
+        return self.dataframe
+
+    def drop_column(self, column_names):
+        self.dataframe.drop(column_names, axis='columns', inplace=True)

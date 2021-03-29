@@ -23,7 +23,7 @@ class Converter:
         :param collection:
         :return:
         '''
-        with open(filename, 'w', newline='', encoding='UTF-8') as csvout:
+        with open(f'RE/CSV/{filename}', 'w+', newline='', encoding='UTF-8') as csvout:
             '''
             If fieldname has a . in it strip everything befor the .
             '''
@@ -61,9 +61,9 @@ class Converter:
         collection = self.database.products
         self.mongo_to_csv(fieldnames, filename, collection)
 
-    def visitors(self, fieldnames, filename):
+    def profiles(self, fieldnames, filename):
         '''
-        Call the convert function with the wanted parameters to converts visitors.
+        Call the convert function with the wanted parameters to converts profiles.
         :param fieldnames:
         :param filename:
         :return:
@@ -73,7 +73,7 @@ class Converter:
 
     def sessions(self, fieldnames, filename):
         '''
-        Call the convert function with the wanted parameters to converts visitors.
+        Call the convert function with the wanted parameters to converts profiles.
         :param fieldnames:
         :param filename:
         :return:

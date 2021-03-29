@@ -45,12 +45,12 @@ def create_database(dbname='huwebshop'):
 
     # Configure parser for database.ini
     parser = ConfigParser()
-    parser.read('database.ini')
+    parser.read('RE/database.ini')
 
     # If Database line exists remove it otherwise pass
     try:
         parser.remove_option('postgresql', 'database')
-        with open('database.ini', 'w') as configFile:
+        with open('RE/database.ini', 'w') as configFile:
             parser.write(configFile)
     except ValueError:
         pass
@@ -78,7 +78,7 @@ def create_database(dbname='huwebshop'):
     print(f'{dbname} aangevuld aan de database.ini file')
 
 
-def fill_database(sqlfile='huwebshop.sql'):
+def fill_database(sqlfile='RE/huwebshop.sql'):
     '''
     Fill the database with the database structure from a sql file.
     :param sqlfile:

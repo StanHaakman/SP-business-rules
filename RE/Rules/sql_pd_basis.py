@@ -1,4 +1,4 @@
-from _functions.config import config
+from RE._functions.config import config
 import psycopg2
 import pandas as pd
 
@@ -93,7 +93,6 @@ class ContentRules:
 
         ''' zet de data in de nieuwe database '''
         for i, row in df.iterrows():
-
             query_fill = f"INSERT INTO {target} (idProducts, name, brand, category) VALUES('%s','%s','%s','%s');" % (row['idproducts'], row['name'], row['brand'], row['category'])
             cur.execute(query_fill)
 

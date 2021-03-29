@@ -152,7 +152,7 @@ When you're done with this particular session, or you want to stop and restart e
 
 When running, the front page of the webshop should look something like this:
 
-![HU Webshop Front Page Example 02-09-2019](./reference_images/homepage.png)
+![HU Webshop Front Page Example 02-09-2019](reference_imagesomepage.png)
 
 The text may be different in future versions, but the overall layout should remain more or less the same. The bar at the top allows you to change the profile ID you're viewing the site with; it defaults upon restart to the first one it can find. In the database, you will find these IDs in the profiles table, as the \_id property, e.g. ObjectId("5a3a1169a825610001bc0f3a") . This allows you to test your recommendation engine with different profiles.
 
@@ -160,7 +160,7 @@ Through the main menu, you can reach the product overview and detail pages. You 
 
 ---
 
-![HU Webshop Product Page Example 1 02-09-2019](./reference_images/productpage_1.png)
+![HU Webshop Product Page Example 1 02-09-2019](reference_imagesroductpage_1.png)
 
 ---
 
@@ -168,7 +168,7 @@ Through the main menu, you can reach the product overview and detail pages. You 
 
 ---
 
-![HU Webshop Product Page Example 2 02-09-2019](./reference_images/productpage_2.png)
+![HU Webshop Product Page Example 2 02-09-2019](reference_imagesroductpage_2.png)
 
 ---
 
