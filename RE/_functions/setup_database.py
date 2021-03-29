@@ -6,6 +6,36 @@ from psycopg2.extensions import ISOLATION_LEVEL_AUTOCOMMIT
 from _functions.config import config
 
 
+def drop_database(dbname):
+
+    # Configure parser for database.ini
+    parser = ConfigParser()
+    parser.read('database.ini')
+
+    # If Database line exists remove it otherwise pass
+    try:
+        parser.remove_option('postgresql', 'database')
+        with open('database.ini', 'w') as configFile:
+            parser.write(configFile)
+    except ValueError:
+        pass
+
+    try:
+        # Use config functie to get values from database.ini
+        db = config()
+        con = psycopg2.connect(**db)
+        cursor = con.cursor()
+        con.set_isolation_level(ISOLATION_LEVEL_AUTOCOMMIT)
+        drop_table_command = f"DROP DATABASE {dbname};"
+        cursor.execute(drop_table_command)
+        con.commit()
+        print('Database has been dropped')
+        con.close()
+
+    except (Exception, psycopg2.DatabaseError) as error:
+        print(error)
+
+
 def create_database(dbname='huwebshop'):
     '''
     Function to create a new database and extend the database.ini file.
@@ -15,11 +45,13 @@ def create_database(dbname='huwebshop'):
 
     # Configure parser for database.ini
     parser = ConfigParser()
-    parser.read('database.ini')
+    parser.read('RE/database.ini')
 
     # If Database line exists remove it otherwise pass
     try:
         parser.remove_option('postgresql', 'database')
+        with open('RE/database.ini', 'w') as configFile:
+            parser.write(configFile)
     except ValueError:
         pass
 
@@ -46,7 +78,7 @@ def create_database(dbname='huwebshop'):
     print(f'{dbname} aangevuld aan de database.ini file')
 
 
-def fill_database(sqlfile='huwebshop.sql'):
+def fill_database(sqlfile='RE/huwebshop.sql'):
     '''
     Fill the database with the database structure from a sql file.
     :param sqlfile:
