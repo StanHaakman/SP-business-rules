@@ -17,25 +17,34 @@ def getItemIDs(profileID):
     buidslist = cur.fetchall()
 
     finalbuids = (list(itertools.chain(*buidslist)))
-    finalbuids = eval(finalbuids[0])
-
+    try:
+        finalbuids = eval(finalbuids[0])
+    except:
+        pass
 
     whereclause_buids = where_clause("buid", finalbuids)
     query = f"SELECT products FROM sessions {whereclause_buids}"
     cur.execute(query)
     productlist = cur.fetchall()
-    finallist = list(itertools.chain(*productlist))
+    prodidlist = list(itertools.chain(*productlist))
+    try:
+        prodidlist = eval(prodidlist[0])
+    except:
+        pass
 
-    """
-    nextwhereclause = whereClause(id, finallist)
-    newquery = f"SELECT id FROM repeatables {nextwhereclause}"
+    whereclauseids = where_clause("idproducts", prodidlist)
+    newquery = f"SELECT idproducts FROM repeatables {whereclauseids}"
 
-    newresults = cur.execute(newresults)"""
+    cur.execute(newquery)
+    idlist = cur.fetchall()
+    finalidlist = list(itertools.chain(*idlist))
+
 
     con.commit()
     cur.close()
     con.close()
 
-    return finallist
+    return finalidlist
 
 print(getItemIDs('5a393ef6a825610001bb6c51'))
+print(getItemIDs('5a394aa8a825610001bb7aed'))
