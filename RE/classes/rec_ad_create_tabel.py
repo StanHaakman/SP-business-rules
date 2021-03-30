@@ -10,7 +10,7 @@ class Create_rec_ad:
 
     def get_data(self):
         con = self.con
-        df = pd.read_sql_query(f"select idproducts, category, target from products where folder_actief = 'Enabled';", con)
+        df = pd.read_sql_query(f"select idproducts, category, sub_category, target from products where folder_actief = 'Enabled';", con)
         return df
 
     def create_table(self):
@@ -21,11 +21,11 @@ class Create_rec_ad:
         query_drop = f"DROP TABLE IF EXISTS acties CASCADE;"
         cur.execute(query_drop)
 
-        query_create = f"CREATE TABLE acties (idProducts VARCHAR, category VARCHAR, target VARCHAR);"
+        query_create = f"CREATE TABLE acties (idProducts VARCHAR, category VARCHAR, sub_category VARCHAR, target VARCHAR);"
         cur.execute(query_create)
 
         for i, row in df.iterrows():
-            query_fill = f"INSERT INTO acties (idProducts, category, target) VALUES('%s','%s','%s');" % (row['idproducts'], row['category'], row['target'])
+            query_fill = f"INSERT INTO acties (idProducts, category, sub_category, target) VALUES('%s','%s','%s','%s');" % (row['idproducts'], row['category'],row['sub_category'], row['target'])
             cur.execute(query_fill)
 
         con.commit()
