@@ -5,4 +5,3 @@ get_freq = Get_freq()
 
 create.create_table()
 df = get_freq.get_dataframe(id=)
-
