@@ -24,16 +24,19 @@ def freq(lst):
 def filter_freq_to_list(dict,iterator):
     lst = []
 
-    for x in range(-1,iterator-1):
+    for x in range(-1,iterator - 1):
         lst.append(list(dict)[x])
         print(list(dict)[x])
         pass
     return lst
 
-
-def insert_into_actiontable():
-
-    create_table()
+def get_product_info_from_ids(lst_id):
+    SQL_query = "select category,target from products where idproducts = '{}';"
+    for id in lst_id:
+        product_data = get_data_query_fetchone(SQL_query.format(id))
+        print(product_data)
+        store_data()
+        pass
     pass
 
 def Testing():
@@ -42,7 +45,7 @@ def Testing():
     filtered_ids = filter_freq_to_list(freqs,2)
 
     print(filtered_ids)
-    insert_into_actiontable(filterd_ids)
+    get_product_info_from_ids(filtered_ids)
     pass
 
 Testing()
