@@ -45,7 +45,8 @@ filter_products.save_dataframe(filename=f'{CSV_location}products.csv')
 filter_profiles = FilterProfiles()
 filter_profiles.load_dataframe(filename=f'{CSV_location}profiles.csv')
 filter_profiles.drop_null(column_names=['_id', 'segment'])
-filter_profiles.save_dataframe()
+filter_profiles.fix_alles()
+filter_profiles.save_dataframe(filename=f'{CSV_location}profiles.csv')
 
 # Create sender and copy the main files
 data_sender = DataSender()
