@@ -20,14 +20,13 @@ def getItemIDs(profileID):
     finalbuids = eval(finalbuids[0])
 
 
-    """whereclause = whereClause("buids", finalbuids)
+    whereclause_buids = where_clause("buid", finalbuids)
+    query = f"SELECT products FROM sessions {whereclause_buids}"
+    cur.execute(query)
+    productlist = cur.fetchall()
+    finallist = list(itertools.chain(*productlist))
 
-    query = f"SELECT products FROM sessions {'whereclause'}"
-
-    results = cur.execute(query)
-    finallist = list(itertools.chain(*results))
-
-    optie 2: query met where clause id's van
+    """
     nextwhereclause = whereClause(id, finallist)
     newquery = f"SELECT id FROM repeatables {nextwhereclause}"
 
@@ -37,6 +36,6 @@ def getItemIDs(profileID):
     cur.close()
     con.close()
 
-    return finalbuids
+    return finallist
 
 print(getItemIDs('5a393ef6a825610001bb6c51'))
