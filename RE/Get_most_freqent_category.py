@@ -35,7 +35,6 @@ def get_product_info_from_ids(lst_id):
     for id in lst_id:
         product_data = get_data_query_fetchone(SQL_query.format(id))
         print(product_data)
-        store_data()
         pass
     pass
 
