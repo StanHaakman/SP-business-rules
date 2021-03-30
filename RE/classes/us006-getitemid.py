@@ -16,8 +16,10 @@ def getItemIDs(profileID):
     finallist = list(itertools.chain(*results))
 
     """optie 2: query met where clause id's van"""
-    nextwhereclause(id, finallist)
+    nextwhereclause = whereClause(id, finallist)
     newquery = f"SELECT id FROM repeatables {nextwhereclause}"
+
+    newresults = cur.execute(newresults)
 
     con.commit()
     con.close()
