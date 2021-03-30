@@ -16,6 +16,9 @@ class FilterProducts:
         # Pandas bestand inzelen
         self.dataframe = pd.read_csv(filename, encoding='utf-8')
 
+    def replace_ids(self):
+        self.dataframe = self.dataframe.replace('\'', '`', regex=True)
+
     def replace_null(self, columns, replacement='onbekend'):
         for column in columns:
             self.dataframe[column] = self.dataframe[column].replace(np.nan, replacement if column != 'herhaalaankopen' else False, regex=True)
