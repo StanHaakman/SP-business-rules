@@ -41,6 +41,7 @@ filter_products.replace_null(
 filter_products.replace_doelgroep()
 filter_products.replace_gender(
     invalid=['Gezin', 'B2B', 'Kinderen', 'Senior', 'Baby', 'Grootverpakking', '8719497835768'])
+filter_products.replace_ids()
 filter_products.save_dataframe(filename=f'{CSV_location}products.csv')
 
 filter_profiles = FilterProfiles()

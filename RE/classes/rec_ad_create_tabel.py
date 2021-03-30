@@ -26,6 +26,7 @@ class Create_rec_ad:
 
         for i, row in df.iterrows():
             query_fill = f"INSERT INTO acties (idProducts, category, sub_category, target) VALUES('%s','%s','%s','%s');" % (row['idproducts'], row['category'],row['sub_category'], row['target'])
+
             cur.execute(query_fill)
 
         con.commit()
