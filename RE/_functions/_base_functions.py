@@ -74,6 +74,20 @@ def get_data_query(query):
     except (Exception, psycopg2.DatabaseError) as error:
         print(error)
 
+def get_data_query_fetchone(query):
+
+    try:
+        con = connect_to_db()
+        cur = con.cursor()
+        cur.execute(query)
+        data = cur.fetchone()
+        con.commit()
+        con.close()
+        print('Data is retrieved')
+        return data
+
+    except (Exception, psycopg2.DatabaseError) as error:
+        print(error)
 
 def store_data(store_query, data):
 
