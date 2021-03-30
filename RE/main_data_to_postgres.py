@@ -4,6 +4,7 @@ from sys import platform
 from _functions.setup_database import create_database, fill_database, drop_database
 from classes.products_filter import FilterProducts
 from classes.profiles_filter import FilterProfiles
+from classes.sessions_filter import FilterSessions
 from classes.pymongo_converter import Converter
 from classes.send_data import DataSender
 
@@ -21,9 +22,9 @@ fill_database()
 converter = Converter()
 converter.products(fieldnames=['_id', 'name', 'brand', 'category', 'sub_category', 'deeplink', 'properties.doelgroep', 'fast_mover', 'gender', 'herhaalaankopen', 'price.selling_price', 'properties.folder_actief'], filename='products.csv')
 
-converter.profiles(fieldnames=['_id', 'recommendations.segment',  'previously_recommended', 'order'], filename='profiles.csv')
+converter.profiles(fieldnames=['_id', 'recommendations.segment',  'previously_recommended', 'buids'], filename='profiles.csv')
 
-converter.sessions(fieldnames=['_id', 'user_agent.identifier', 'session_start', 'session_end'], filename='sessions.csv')
+converter.sessions(fieldnames=['_id', 'user_agent.identifier', 'has_sale', 'buid', 'order.products'], filename='sessions.csv')
 
 '''
 Create products filter and load in the file. then replace the wanted values.
@@ -45,8 +46,13 @@ filter_products.save_dataframe(filename=f'{CSV_location}products.csv')
 filter_profiles = FilterProfiles()
 filter_profiles.load_dataframe(filename=f'{CSV_location}profiles.csv')
 filter_profiles.drop_null(column_names=['_id', 'segment'])
-filter_profiles.fix_alles()
 filter_profiles.save_dataframe(filename=f'{CSV_location}profiles.csv')
+
+filter_sessions = FilterSessions()
+filter_sessions.load_dataframe(filename=f'{CSV_location}sessions.csv')
+filter_sessions.replace_buids()
+filter_sessions.refactor_products()
+filter_sessions.save_dataframe(filename=f'{CSV_location}sessions.csv')
 
 # Create sender and copy the main files
 data_sender = DataSender()
