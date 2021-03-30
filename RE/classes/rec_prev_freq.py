@@ -40,11 +40,12 @@ class Get_freq:
         return lst
 
     def get_product_info_from_ids(self, lst_id):
-        SQL_query = "select category, target from products where idproducts = '{}';"
-        con = self.con
+
         lst_category = []
         lst_target = []
         df = pd.DataFrame()
+
+        SQL_query = "select category, target from products where idproducts = '{}';"
         for id in lst_id:
             var = get_data_query_fetchone(SQL_query.format(id))
             lst_category.append(var[0])
@@ -52,6 +53,7 @@ class Get_freq:
 
         df['category'] = lst_category
         df['target'] = lst_target
+
         return df
 
 
