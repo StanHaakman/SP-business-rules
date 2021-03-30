@@ -129,8 +129,9 @@ def where_clause(valuename, valueslist):
 
     for i in range(len(valueslist)):
         if i == 0:
-            clause += f"WHERE {valuename} = {valueslist[i]} "
+            clause += f"WHERE {valuename} = '{valueslist[i]}'"
         else:
-            clause += f"OR {valuename} = {valueslist[i]}"
+            clause += f" OR {valuename} = '{valueslist[i]}'"
 
+    print(clause)
     return clause
