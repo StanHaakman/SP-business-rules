@@ -141,5 +141,22 @@ def where_clause(valuename, valueslist):
         else:
             clause += f" OR {valuename} = '{valueslist[i]}'"
 
-    print(clause)
+    return clause
+
+
+def or_clause(valuename, valueslist):
+    """creates a where clause for a query, taking a list with values and looping through it to create the entire clause.
+    if the given list is empty the function returns an empty clause"""
+
+    clause = ""
+
+    if not valueslist:
+        return clause
+
+    for i in range(len(valueslist)):
+        if i == 0:
+            clause += f" {valuename} = '{valueslist[i]}'"
+        else:
+            clause += f" OR {valuename} = '{valueslist[i]}'"
+
     return clause
