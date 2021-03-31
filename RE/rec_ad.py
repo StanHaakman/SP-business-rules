@@ -15,4 +15,4 @@ class rec_ad_engine:
 
     def rec_ad(self):
         df = self.get_freq.get_dataframe(id='5a393eceed295900010386a8')
-        self.match.check_match(df=df)
+        lst = self.match.check_match(df=df)

@@ -7,6 +7,8 @@ import os
 from pymongo import MongoClient
 from dotenv import load_dotenv
 
+from RE.classes.rec_prev_freq import Get_freq
+from RE.classes.rec_ad_match import Rec_match
 from RE._functions.config import config
 
 app = Flask(__name__)
@@ -59,22 +61,14 @@ class SimpleRecom(Resource):
 
 
 class AdRecom(Resource):
-    def get_ad_products(self):
-        db = config()
-        con = psycopg2.connect(**db)
-        cur = con.cursor()
-        query = "select idproducts from acties order by RANDOM() limit 4"
-        cur.execute(query)
-        con.commit()
-        row = list(cur.fetchall())
-        list_items = []
-        for i in row:
-            list_items.append(i[0])
-        con.close()
-        return list_items
+
+    def get_ad_products(self, profileid):
+        df = Get_freq().get_dataframe(id=profileid)
+        lst = Rec_match().check_match(df=df)
+        return lst
 
     def get(self, profileid, count):
-        proids = self.get_ad_products()
+        proids = self.get_ad_products(profileid)
         return proids
 
 
