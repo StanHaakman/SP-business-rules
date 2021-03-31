@@ -32,11 +32,11 @@ def get_item_ID(valuename, valuelist, cur):
     return prodidlist
 
 
-def getItemIDs(profileID):
+def get_herhaal_Item_IDs(profileID):
 
     con = psycopg2.connect(
         host='localhost',
-        password='pikatoe2',
+        password='',
         user='postgres',
         database='huwebshop'
     )
@@ -44,7 +44,11 @@ def getItemIDs(profileID):
 
     finalbuids = get_profile_buids(profileID, cur)
 
+    prodidlist = get_item_ID("buid", finalbuids, cur)
 
+    finalidlist = get_item_ID("idproducts")
+
+    """
     whereclauseids = where_clause("idproducts", prodidlist)
     newquery = f"SELECT idproducts FROM repeatables {whereclauseids}"
     print(newquery)
@@ -52,7 +56,7 @@ def getItemIDs(profileID):
     cur.execute(newquery)
     idlist = cur.fetchall()
     finalidlist = list(itertools.chain(*idlist))
-
+    """
 
     con.commit()
     cur.close()
