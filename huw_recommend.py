@@ -78,8 +78,28 @@ class AdRecom(Resource):
         return proids
 
 
+class RepRecom(Resource):
+    def get_rep_products(self):
+        db = config()
+        con = psycopg2.connect(**db)
+        cur = con.cursor()
+        query = "select idproducts from repeatables order by RANDOM() limit 4"
+        cur.execute(query)
+        con.commit()
+        row = list(cur.fetchall())
+        list_items = []
+        for i in row:
+            list_items.append(i[0])
+        con.close()
+        return list_items
+
+    def get(self, profileid, count):
+        proids = self.get_rep_products()
+        return proids
+
+
 # This method binds the Recom class to the REST API, to parse specifically
 # requests in the format described below.
 api.add_resource(SimpleRecom, "/<string:profileid>/<int:count>")
-api.add_resource(AdRecom, "/winkelmand/<string:profileid>/<int:count>")
+api.add_resource(RepRecom, "/winkelmand/<string:profileid>/<int:count>")
 api.add_resource(AdRecom, '/home/<string:profileid>/<int:count>')
