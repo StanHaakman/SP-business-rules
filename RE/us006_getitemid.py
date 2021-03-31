@@ -7,19 +7,19 @@ def get_profile_buids(profileID, cur):
     """takes a profile ID and returns all buids belonging to that profile"""
 
     #creates and executes query
-    buidsquery = f"SELECT buids FROM visitors WHERE (idvisitors = '{profileID}')"
-    print(buidsquery)
-    cur.execute(buidsquery)
-    buidslist = cur.fetchall()
+    query = f"SELECT buids FROM visitors WHERE (idvisitors = '{profileID}')"
+    print(query)
+    cur.execute(query)
+    list = cur.fetchall()
 
     #filters the buids where possible
-    finalbuids = (list(itertools.chain(*buidslist)))
+    finallist = (list(itertools.chain(*list)))
     try:
-        finalbuids = eval(finalbuids[0])
+        finallist = eval(finallist[0])
     except:
         pass
 
-    return finalbuids
+    return finallist
 
 
 def get_item_ID(tablevalues, tablename, valuename, valuelist, cur):
@@ -36,16 +36,16 @@ def get_item_ID(tablevalues, tablename, valuename, valuelist, cur):
     query = f"SELECT {tablevalues} FROM {tablename} {whereclause}"
     print(query)
     cur.execute(query)
-    productlist = cur.fetchall()
+    list = cur.fetchall()
 
     #filter the resulting list
-    prodidlist = list(itertools.chain(*productlist))
+    finallist = list(itertools.chain(*list))
     try:
-        prodidlist = eval(prodidlist[0])
+        finallist = eval(finallist[0])
     except:
         pass
 
-    return prodidlist
+    return finallist
 
 
 def get_herhaal_Item_IDs(profileID):
@@ -58,27 +58,17 @@ def get_herhaal_Item_IDs(profileID):
     )
     cur = con.cursor()
 
-    finalbuids = get_profile_buids(profileID, cur)
+    buids_list = get_profile_buids(profileID, cur)
 
-    prodidlist = get_item_ID("products", "sessions", "buid", finalbuids, cur)
+    prod_id_list = get_item_ID("products", "sessions", "buid", buids_list, cur)
 
-    finalidlist = get_item_ID("idproducts", "repeatables", "idproducts", prodidlist, cur)
-
-    """
-    whereclauseids = where_clause("idproducts", prodidlist)
-    newquery = f"SELECT idproducts FROM repeatables {whereclauseids}"
-    print(newquery)
-
-    cur.execute(newquery)
-    idlist = cur.fetchall()
-    finalidlist = list(itertools.chain(*idlist))
-    """
+    recommend_id_list = get_item_ID("idproducts", "repeatables", "idproducts", prod_id_list, cur)
 
     con.commit()
     cur.close()
     con.close()
 
-    return finalidlist
+    return recommend_id_list
 
 print(get_herhaal_Item_IDs('5a393ef6a825610001bb6c51'))
 print(get_herhaal_Item_IDs('5a394aa8a825610001bb7aed'))
