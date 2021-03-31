@@ -9,10 +9,35 @@ class Rec_match:
         db = config()
         self.con = psycopg2.connect(**db)
         self.get_freq = Get_freq()
+        self.cur = self.con.cursor()
 
 
-    def get_visitorid(self):
-        pass
+    def filter_lst(self, lst):
+        new_lst = []
+        print(lst)
+        for i in lst:
+            try:
+                for j in i:
+                    new_lst.append(j[0])
+            except ValueError:
+                print(ValueError)
+        return new_lst
 
-    def check_match(self):
-        df = self.get_freq.get_dataframe()
+    def check_match(self, df):
+        lst = []
+        cur = self.cur
+        empty_lst = []
+        print(df)
+
+        for i, row in df.iterrows():
+            query_get = f"select idproducts from acties where category = '{row['category']}' and target = '{row['target']}' order by random() limit 2;"
+            cur.execute(query_get)
+            data = cur.fetchall()
+            if data == empty_lst:
+                query_get = f"select idproducts from acties where category = '{row['category']}' order by random() limit 2;"
+                cur.execute(query_get)
+                data = cur.fetchall()
+            lst.append(data)
+
+        lst = self.filter_lst(lst=lst)
+        return lst
