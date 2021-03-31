@@ -74,6 +74,7 @@ def get_data_query(query):
     except (Exception, psycopg2.DatabaseError) as error:
         print(error)
 
+
 def get_data_query_fetchone(query):
 
     try:
@@ -88,6 +89,7 @@ def get_data_query_fetchone(query):
 
     except (Exception, psycopg2.DatabaseError) as error:
         print(error)
+
 
 def store_data(store_query, data):
 
@@ -122,6 +124,7 @@ def update_many_query(tablename, change_column_name, change_condition_name, valu
 
     except (Exception, psycopg2.DatabaseError) as error:
         print(error)
+
 
 def where_clause(valuename, valueslist):
     """creates a where clause for a query, taking a list with values and looping through it to create the entire clause.
