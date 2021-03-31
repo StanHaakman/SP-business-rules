@@ -1,16 +1,14 @@
 import pandas as pd
-from _functions.config import config
 import psycopg2
 from RE.classes.rec_prev_freq import Get_freq
 
+
 class Rec_match:
 
-    def __init__(self):
-        db = config()
-        self.con = psycopg2.connect(**db)
+    def __init__(self, con):
+        self.con = con
         self.get_freq = Get_freq()
         self.cur = self.con.cursor()
-
 
     def filter_lst(self, lst):
         new_lst = []
