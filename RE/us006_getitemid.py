@@ -3,16 +3,9 @@ import itertools
 import psycopg2
 
 
-def getItemIDs(profileID):
-    con = psycopg2.connect(
-        host='localhost',
-        password='postgres',
-        user='postgres',
-        database='huwebshop'
-    )
-    cur = con.cursor()
-
+def get_profile_buids(profileID, cur):
     buidsquery = f"SELECT buids FROM visitors WHERE (idvisitors = '{profileID}')"
+    print(buidsquery)
     cur.execute(buidsquery)
     buidslist = cur.fetchall()
 
@@ -22,8 +15,13 @@ def getItemIDs(profileID):
     except:
         pass
 
-    whereclause_buids = where_clause("buid", finalbuids)
-    query = f"SELECT products FROM sessions {whereclause_buids}"
+    return finalbuids
+
+
+def get_item_ID(valuename, valuelist, cur):
+    whereclause = where_clause(valuename, valuelist)
+    query = f"SELECT products FROM sessions {whereclause}"
+    print(query)
     cur.execute(query)
     productlist = cur.fetchall()
     prodidlist = list(itertools.chain(*productlist))
@@ -31,9 +29,25 @@ def getItemIDs(profileID):
         prodidlist = eval(prodidlist[0])
     except:
         pass
+    return prodidlist
+
+
+def getItemIDs(profileID):
+
+    con = psycopg2.connect(
+        host='localhost',
+        password='pikatoe2',
+        user='postgres',
+        database='huwebshop'
+    )
+    cur = con.cursor()
+
+    finalbuids = get_profile_buids(profileID, cur)
+
 
     whereclauseids = where_clause("idproducts", prodidlist)
     newquery = f"SELECT idproducts FROM repeatables {whereclauseids}"
+    print(newquery)
 
     cur.execute(newquery)
     idlist = cur.fetchall()
