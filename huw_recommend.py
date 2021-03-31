@@ -7,9 +7,9 @@ import os
 from pymongo import MongoClient
 from dotenv import load_dotenv
 
-from RE.classes.rec_prev_freq import Get_freq
-from RE.classes.rec_ad_match import Rec_match
-from RE._functions.config import config
+from test_functions.rec_prev_freq import Get_freq
+from test_functions.rec_ad_match import Rec_match
+from test_functions.config import config
 
 app = Flask(__name__)
 api = Api(app)
@@ -74,17 +74,7 @@ class AdRecom(Resource):
 
 class RepRecom(Resource):
     def get_rep_products(self):
-        db = config()
-        con = psycopg2.connect(**db)
-        cur = con.cursor()
-        query = "select idproducts from repeatables order by RANDOM() limit 4"
-        cur.execute(query)
-        con.commit()
-        row = list(cur.fetchall())
-        list_items = []
-        for i in row:
-            list_items.append(i[0])
-        con.close()
+
         return list_items
 
     def get(self, profileid, count):
