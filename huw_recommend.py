@@ -7,6 +7,7 @@ import os
 from pymongo import MongoClient
 from dotenv import load_dotenv
 
+from RE._functions.config import config
 
 app = Flask(__name__)
 api = Api(app)
@@ -28,18 +29,17 @@ else:
 database = client.huwebshop
 
 
-class Recom(Resource):
-    """ This class represents the REST API that provides the recommendations for
-    the webshop. At the moment, the API simply returns a random set of products
-    to recommend."""
+class SimpleRecom(Resource):
+    def get_popular_products(self):
+        # con = psycopg2.connect(
+        #     host='localhost',
+        #     password='Elvis&Presley',
+        #     user='postgres',
+        #     database='huwebshop'
+        # )
 
-    def get_data(self):
-        con = psycopg2.connect(
-            host='localhost',
-            password='Elvis&Presley',
-            user='postgres',
-            database='huwebshop'
-        )
+        db = config()
+        con = psycopg2.connect(**db)
         cur = con.cursor()
         query = "select idproducts from popular_products"
         cur.execute(query)
@@ -54,45 +54,31 @@ class Recom(Resource):
     def get(self, profileid, count):
         """ This function represents the handler for GET requests coming in
         through the API. It currently returns a random sample of products. """
-        randcursor = database.products.aggregate([{'$sample': {'size': count}}])
-        prodids = self.get_data()
+        prodids = self.get_popular_products()
         return prodids, 200
 
-    def getPopularID(self):
-        # DataSenderObject = DataSender()
-        # con = DataSenderObject.openconnection()def connect_to_db():
-        con = psycopg2.connect(
-            host='localhost',
-            password='postgres',
-            user='postgres',
-            database='huwebshop'
-        )
+
+class AdRecom(Resource):
+    def get_ad_products(self):
+        db = config()
+        con = psycopg2.connect(**db)
         cur = con.cursor()
-
-        idDict = {}
-
-        query = "SELECT * FROM popular_products"
-
+        query = "select idproducts from acties order by RANDOM() limit 4"
         cur.execute(query)
         con.commit()
-        items = cur.fetchall()
-        print(items)
-        newitems = list(itertools.chain(*items))
-        print(newitems)
+        row = list(cur.fetchall())
+        list_items = []
+        for i in row:
+            list_items.append(i[0])
+        con.close()
+        return list_items
 
-        # selecteer producten in mongodb
-        cursor = database.products.aggregate([{'_id': {"$in": [self.aggregateIDClause(newitems)]}}])
-        prodids = list(map(lambda x: x['_id'], list(cursor)))
-
-        return prodids, 200
-
-    def aggregateIDClause(self, itemID):
-        """selects the first 4 ID's in a dictionary"""
-        for i in range(1):
-            clause = "'{}', '{}', '{}', '{}'".format(itemID.keys(i), itemID.keys(i + 1), itemID.keys(i + 2),
-                                                     itemID.keys(i + 3))
+    def get(self, profileid, count):
+        proids = self.get_ad_products()
+        return proids
 
 
 # This method binds the Recom class to the REST API, to parse specifically
 # requests in the format described below.
-api.add_resource(Recom, "/<string:profileid>/<int:count>")
+api.add_resource(SimpleRecom, "/<string:profileid>/<int:count>")
+# api.add_resource(AdRecom, "/<string:profileid>/<int:count>")
