@@ -33,7 +33,7 @@ class HUWebshop(object):
 
     productfields = ["name", "price.selling_price", "properties.discount", "images"]
 
-    recommendationtypes = {'popular':"Anderen kochten ook",'similar':"Soortgelijke producten",'combination':'Combineert goed met','behaviour':'Passend bij uw gedrag','personal':'Persoonlijk aanbevolen', 'Ad': 'In de aanbieding'}
+    recommendationtypes = {'popular':"Anderen kochten ook",'similar':"Soortgelijke producten",'combination':'Combineert goed met','behaviour':'Passend bij uw gedrag','personal':'Persoonlijk aanbevolen'}
 
     """ ..:: Initialization and Category Index Functions ::.. """
 
@@ -218,6 +218,9 @@ class HUWebshop(object):
         packet['profile_id'] = session['profile_id']
         packet['shopping_cart'] = session['shopping_cart']
         packet['shopping_cart_count'] = self.shoppingcartcount()
+        if 'r_products' not in packet:
+            packet['r_products'] = self.recommendations(4, page='/home')
+            packet['r_string'] = list(self.recommendationtypes.values())[0]
         return render_template(template, packet=packet)
 
     """ ..:: Recommendation Functions ::.. """

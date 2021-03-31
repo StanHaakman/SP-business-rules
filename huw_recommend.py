@@ -82,3 +82,4 @@ class AdRecom(Resource):
 # requests in the format described below.
 api.add_resource(SimpleRecom, "/<string:profileid>/<int:count>")
 api.add_resource(AdRecom, "/winkelmand/<string:profileid>/<int:count>")
+api.add_resource(AdRecom, '/home/<string:profileid>/<int:count>')
