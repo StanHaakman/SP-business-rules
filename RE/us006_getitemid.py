@@ -4,11 +4,15 @@ import psycopg2
 
 
 def get_profile_buids(profileID, cur):
+    """takes a profile ID and returns all buids belonging to that profile"""
+
+    #creates and executes query
     buidsquery = f"SELECT buids FROM visitors WHERE (idvisitors = '{profileID}')"
     print(buidsquery)
     cur.execute(buidsquery)
     buidslist = cur.fetchall()
 
+    #filters the buids where possible
     finalbuids = (list(itertools.chain(*buidslist)))
     try:
         finalbuids = eval(finalbuids[0])
@@ -18,17 +22,29 @@ def get_profile_buids(profileID, cur):
     return finalbuids
 
 
-def get_item_ID(valuename, valuelist, cur):
+def get_item_ID(tablevalues, tablename, valuename, valuelist, cur):
+    """creates a where clause for a query, executes the query and filters the list"""
+
+    #create the where clause and checks if string is not empty (if it is, raise exception
     whereclause = where_clause(valuename, valuelist)
-    query = f"SELECT products FROM sessions {whereclause}"
+    if len(whereclause) != 0:
+        pass
+    else:
+        raise Exception("no products have been found")
+
+    #create and execute the query
+    query = f"SELECT {tablevalues} FROM {tablename} {whereclause}"
     print(query)
     cur.execute(query)
     productlist = cur.fetchall()
+
+    #filter the resulting list
     prodidlist = list(itertools.chain(*productlist))
     try:
         prodidlist = eval(prodidlist[0])
     except:
         pass
+
     return prodidlist
 
 
@@ -36,7 +52,7 @@ def get_herhaal_Item_IDs(profileID):
 
     con = psycopg2.connect(
         host='localhost',
-        password='',
+        password='postgres',
         user='postgres',
         database='huwebshop'
     )
@@ -44,9 +60,9 @@ def get_herhaal_Item_IDs(profileID):
 
     finalbuids = get_profile_buids(profileID, cur)
 
-    prodidlist = get_item_ID("buid", finalbuids, cur)
+    prodidlist = get_item_ID("products", "sessions", "buid", finalbuids, cur)
 
-    finalidlist = get_item_ID("idproducts")
+    finalidlist = get_item_ID("idproducts", "repeatables", "idproducts", prodidlist, cur)
 
     """
     whereclauseids = where_clause("idproducts", prodidlist)
@@ -64,5 +80,5 @@ def get_herhaal_Item_IDs(profileID):
 
     return finalidlist
 
-print(getItemIDs('5a393ef6a825610001bb6c51'))
-print(getItemIDs('5a394aa8a825610001bb7aed'))
+print(get_herhaal_Item_IDs('5a393ef6a825610001bb6c51'))
+print(get_herhaal_Item_IDs('5a394aa8a825610001bb7aed'))
