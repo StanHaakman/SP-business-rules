@@ -4,5 +4,5 @@ create = Create_rec_ad()
 get_freq = Get_freq()
 
 create.create_table()
-df = get_freq.get_dataframe(id=)
+df = get_freq.get_dataframe(id='5a393eceed295900010386a8')
 

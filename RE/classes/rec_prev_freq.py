@@ -63,5 +63,5 @@ class Get_freq:
         filtered_ids = self.filter_freq_to_list(freqs,2)
 
         df = self.get_product_info_from_ids(filtered_ids)
-
+        print(df)
         return df
