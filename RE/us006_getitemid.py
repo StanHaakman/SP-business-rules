@@ -118,7 +118,7 @@ def create_repeatable_per_visitor():
     cur.close()
     con.close()
 
-
+"""
 def get_all_profileIDs():
     con = psycopg2.connect(
         host='localhost',
@@ -133,7 +133,7 @@ def get_all_profileIDs():
     con.commit()
     cur.close()
     con.close()
-
+"""
 
 
 
