@@ -81,4 +81,4 @@ class AdRecom(Resource):
 # This method binds the Recom class to the REST API, to parse specifically
 # requests in the format described below.
 api.add_resource(SimpleRecom, "/<string:profileid>/<int:count>")
-# api.add_resource(AdRecom, "/<string:profileid>/<int:count>")
+api.add_resource(AdRecom, "/winkelmand/<string:profileid>/<int:count>")
