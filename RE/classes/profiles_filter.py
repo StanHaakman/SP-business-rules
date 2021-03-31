@@ -1,3 +1,4 @@
+import datetime
 from ast import literal_eval
 from dateutil import parser
 import pandas as pd
@@ -81,4 +82,44 @@ class FilterProfiles:
     def replace_null(self, columns, replacement='onbekend'):
         for column in columns:
             self.dataframe[column] = self.dataframe[column].replace(np.nan, replacement, regex=True)
+
+    def fix_alles(self):
+        self.dataframe.to_json(orient='records')
+
+        lst = []
+        for i in self.dataframe['order']:
+            lst.append(i)
+
+        profiles_list = []
+        for i in lst:
+            if type(i) != float:
+                res = dict(eval(i))
+                to_remove = ['first', 'latest', 'count']
+
+                for key_to_remove in to_remove:
+                    try:
+                        del res[key_to_remove]
+                    except KeyError:
+                        pass
+
+                try:
+                    new_list = []
+
+                    for j, id in enumerate(res['ids']):
+                        if id[:3] != 'dd:':
+                            new_list.append(id)
+                    res['ids'] = new_list
+
+                    if len(res['ids']) == 0:
+                        profiles_list.append(np.nan)
+                        continue
+                except KeyError:
+                    profiles_list.append(np.nan)
+                    continue
+
+                profiles_list.append(res['ids'])
+            else:
+                profiles_list.append(i)
+
+        self.dataframe['order'] = profiles_list
 

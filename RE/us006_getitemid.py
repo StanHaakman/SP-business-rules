@@ -1,4 +1,5 @@
-from _functions._base_functions import where_clause, create_table
+from _functions._base_functions import where_clause
+
 import itertools
 import psycopg2
 
@@ -22,8 +23,7 @@ def filter_list_of_strings_of_list(lijst):
                 secondfilter.append(item)
 
     return secondfilter
-
-
+  
 def get_profile_buids(profileID, cur):
     """takes a profile ID and returns all buids belonging to that profile"""
 
@@ -72,7 +72,7 @@ def get_herhaal_Item_IDs(profileID):
 
     con = psycopg2.connect(
         host='localhost',
-        password='',
+        password='postgres',
         user='postgres',
         database='huwebshop'
     )
@@ -91,8 +91,6 @@ def get_herhaal_Item_IDs(profileID):
     con.commit()
     cur.close()
     con.close()
-
-    return
 
 
 def create_repeatable_per_visitor():
@@ -117,25 +115,3 @@ def create_repeatable_per_visitor():
     con.commit()
     cur.close()
     con.close()
-
-"""
-def get_all_profileIDs():
-    con = psycopg2.connect(
-        host='localhost',
-        password='',
-        user='postgres',
-        database='huwebshop'
-    )
-    cur = con.cursor()
-
-    query = f""
-
-    con.commit()
-    cur.close()
-    con.close()
-"""
-
-
-
-
-print(get_herhaal_Item_IDs('5a396e36a825610001bbb368'))

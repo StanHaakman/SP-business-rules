@@ -22,6 +22,7 @@ CREATE TABLE IF NOT EXISTS Products (
   name VARCHAR(255) NULL,
   brand VARCHAR(255) NULL,
   category VARCHAR(255) NULL,
+    sub_category VARCHAR(255) NULL,
   deeplink VARCHAR(255) NULL,
   doelgroep VARCHAR(255) NULL,
   fastmover BOOLEAN NULL,
@@ -29,6 +30,7 @@ CREATE TABLE IF NOT EXISTS Products (
   herhaalaankopen BOOLEAN NULL,
   price DECIMAL NULL,
   stocklevel INT NULL,
+    folder_actief VARCHAR null,
   PRIMARY KEY (idProducts))
 ;
 
@@ -40,9 +42,10 @@ DROP TABLE IF EXISTS  Visitors CASCADE ;
 
 CREATE TABLE IF NOT EXISTS Visitors (
   idVisitors VARCHAR NOT NULL,
-  previously_recommended VARCHAR(255) NULL,
+  previously_recommended VARCHAR NULL,
   TypeVisitors VARCHAR(255) NULL,
-  latest_visit timestamp NULL,
+--     orders VARCHAR NULL,
+    buids VARCHAR NULL,
   PRIMARY KEY (idVisitors))
 ;
 
@@ -54,8 +57,11 @@ DROP TABLE IF EXISTS Sessions CASCADE ;
 CREATE TABLE IF NOT EXISTS Sessions (
   idSessions VARCHAR NOT NULL,
   identifier VARCHAR NULL,
-  sessie_start TIMESTAMP NULL,
-  sessie_end TIMESTAMP NULL,
+--   sessie_start TIMESTAMP NULL,
+--   sessie_end TIMESTAMP NULL,
+  has_sale BOOLEAN NULL,
+  buid VARCHAR NULL,
+  products VARCHAR NULL,
   PRIMARY KEY (idSessions))
 ;
 
@@ -63,20 +69,20 @@ CREATE TABLE IF NOT EXISTS Sessions (
 -- -----------------------------------------------------
 -- Table HUWebshop.Buids
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS Buids CASCADE ;
-
-CREATE TABLE IF NOT EXISTS Buids (
-  buids VARCHAR NOT NULL,
-  Sessions_idSessions VARCHAR NULL,
-  Visitors_idVisitors VARCHAR NULL,
-  PRIMARY KEY (buids),
-  CONSTRAINT fk_Buids_Visitors
-    FOREIGN KEY (Visitors_idVisitors)
-    REFERENCES Visitors (idVisitors),
-  CONSTRAINT fk_Buids_Sessions
-    FOREIGN KEY (Sessions_idSessions)
-    REFERENCES Sessions (idSessions))
-;
+-- DROP TABLE IF EXISTS Buids CASCADE ;
+--
+-- CREATE TABLE IF NOT EXISTS Buids (
+--   buids VARCHAR NOT NULL,
+--   Sessions_idSessions VARCHAR NULL,
+--   Visitors_idVisitors VARCHAR NULL,
+--   PRIMARY KEY (buids),
+--   CONSTRAINT fk_Buids_Visitors
+--     FOREIGN KEY (Visitors_idVisitors)
+--     REFERENCES Visitors (idVisitors),
+--   CONSTRAINT fk_Buids_Sessions
+--     FOREIGN KEY (Sessions_idSessions)
+--     REFERENCES Sessions (idSessions))
+-- ;
 
 -- -----------------------------------------------------
 -- Table `HUWebshop`.`events`

@@ -38,7 +38,7 @@ empty_db_table(tablename='popular_products')
 
 converter = Converter()
 
-converter.sessions(fieldnames=['has_sale', '_id', 'order.products'], filename='sessions_has_sale.csv')
+converter.sessions(fieldnames=['has_sale', '_id', 'order.products'], filename=f'sessions_has_sale.csv')
 
 filter_sessions = FilterSessions()
 

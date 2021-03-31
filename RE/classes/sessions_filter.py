@@ -41,8 +41,26 @@ class FilterSessions:
         print(self.dataframe.isna().sum())
         pass
     
-    def drop_duplicates(self,columm_names):
+    def drop_duplicates(self, column_names):
         self.dataframe.drop_duplicates(subset=[column_names], keep='first', inplace=True)
+
+    def refactor_products(self):
+        product_list = self.dataframe['products']
+
+        new_list = []
+        for i in product_list:
+            new_list.append(i)
+
+        product_lists = []
+        for i in new_list:
+            lst = list(eval(i))
+            temp_list = []
+            for j in lst:
+                res = dict(eval(str(j)))
+                temp_list.append(res['id'])
+            product_lists.append(temp_list)
+
+        self.dataframe['products'] = product_lists
 
     def has_filter(self):
 

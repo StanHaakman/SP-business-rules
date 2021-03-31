@@ -17,7 +17,7 @@ class DataSender:
         con = self.openconnection()
         cur = con.cursor()
 
-        query = f"COPY products( idproducts, name, brand, category, deeplink, doelgroep, fastmover, target, herhaalaankopen, price )" \
+        query = f"COPY products( idproducts, name, brand, category, sub_category, deeplink, doelgroep, fastmover, target, herhaalaankopen, price, folder_actief )" \
                 f"FROM '{pathname}'" \
                 f"DELIMITER ','" \
                 f"CSV HEADER;"
@@ -45,7 +45,7 @@ class DataSender:
         con = self.openconnection()
         cur = con.cursor()
 
-        query = f"COPY visitors(idVisitors, TypeVisitors, latest_visit )" \
+        query = f"COPY visitors(idVisitors, TypeVisitors, previously_recommended, buids )" \
                 f"FROM '{pathname}'" \
                 f"DELIMITER ','" \
                 f"CSV HEADER;"
@@ -58,7 +58,7 @@ class DataSender:
         con = self.openconnection()
         cur = con.cursor()
 
-        query = f"COPY sessions( idsessions,identifier, sessie_start, sessie_end )" \
+        query = f"COPY sessions( idsessions, identifier, has_sale, buid, products )" \
                 f"FROM '{pathname}'" \
                 f"DELIMITER ','" \
                 f"CSV HEADER;"
