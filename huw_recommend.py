@@ -10,6 +10,7 @@ from dotenv import load_dotenv
 from test_functions.rec_prev_freq import Get_freq
 from test_functions.rec_ad_match import Rec_match
 from test_functions.config import config
+from test_functions.rec_repeatables import get_herhaal_Item_IDs
 
 app = Flask(__name__)
 api = Api(app)
@@ -73,12 +74,14 @@ class AdRecom(Resource):
 
 
 class RepRecom(Resource):
-    def get_rep_products(self):
+    def get_rep_products(self, profileid):
+
+        list_items = get_herhaal_Item_IDs(profileid)
 
         return list_items
 
     def get(self, profileid, count):
-        proids = self.get_rep_products()
+        proids = self.get_rep_products(profileid)
         return proids
 
 
