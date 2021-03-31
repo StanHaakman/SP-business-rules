@@ -1,9 +1,8 @@
 import psycopg2
-
 from psycopg2.extensions import ISOLATION_LEVEL_AUTOCOMMIT
 from psycopg2.extras import execute_batch
-
 from _functions.config import config
+
 
 
 def drop_table(tablename):
@@ -115,8 +114,9 @@ def where_clause(valuename, valueslist):
 
     clause = ""
 
-    if not valueslist:
-        return clause
+    if len(valueslist) <= 3:
+        print(f"there are {len(valueslist)} in the list")
+        raise Exception("not enough products have been found, function could not be executed")
 
     for i in range(len(valueslist)):
         if i == 0:
@@ -124,5 +124,4 @@ def where_clause(valuename, valueslist):
         else:
             clause += f" OR {valuename} = '{valueslist[i]}'"
 
-    print(clause)
     return clause
