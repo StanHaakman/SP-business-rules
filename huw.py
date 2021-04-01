@@ -33,7 +33,7 @@ class HUWebshop(object):
 
     productfields = ["name", "price.selling_price", "properties.discount", "images"]
 
-    recommendationtypes = {'popular':"Anderen kochten ook",'similar':"Soortgelijke producten",'combination':'Combineert goed met','behaviour':'Passend bij uw gedrag','personal':'Persoonlijk aanbevolen'}
+    recommendationtypes = {'popular':"Anderen kochten ook",'similar':"Soortgelijke producten",'combination':'Combineert goed met','behaviour':'Passend bij uw gedrag','personal':'Persoonlijk aanbevolen', 'herhaalaankoop': 'Nogmaals bestellen', 'Advertentie': 'Acties voor u'}
 
     """ ..:: Initialization and Category Index Functions ::.. """
 
@@ -220,7 +220,8 @@ class HUWebshop(object):
         packet['shopping_cart_count'] = self.shoppingcartcount()
         if 'r_products' not in packet:
             packet['r_products'] = self.recommendations(4, page='/home')
-            packet['r_string'] = list(self.recommendationtypes.values())[0]
+            packet['r_string'] = list(self.recommendationtypes.values())[6]
+            packet['r_type'] =list(self.recommendationtypes.keys())[6]
         return render_template(template, packet=packet)
 
     """ ..:: Recommendation Functions ::.. """
@@ -293,8 +294,8 @@ class HUWebshop(object):
             i.append(product)
         return self.renderpackettemplate('shoppingcart.html',{'itemsincart':i,\
             'r_products':self.recommendations(4, page='/winkelmand'), \
-            'r_type':list(self.recommendationtypes.keys())[2],\
-            'r_string':list(self.recommendationtypes.values())[2]})
+            'r_type':list(self.recommendationtypes.keys())[5],\
+            'r_string':list(self.recommendationtypes.values())[5]})
 
     def categoryoverview(self):
         """ This subpage shows all top-level categories in its main menu. """
