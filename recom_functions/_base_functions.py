@@ -133,7 +133,7 @@ def where_clause(valuename, valueslist):
     clause = ""
 
     if not valueslist:
-        return clause
+        raise Exception("Valuelist is empty, clause could not be created")
 
     for i in range(len(valueslist)):
         if i == 0:
@@ -151,7 +151,7 @@ def or_clause(valuename, valueslist):
     clause = ""
 
     if not valueslist:
-        return clause
+        raise Exception("Valuelist is empty, clause could not be created")
 
     for i in range(len(valueslist)):
         if i == 0:
