@@ -40,7 +40,7 @@ body, a:link, a:visited, a:hover, a:active {
 }
 
 .centerstage {
-	width:800px;
+	max-width: 900px;
 	margin-left:auto;
 	margin-right:auto;
 }
@@ -212,7 +212,7 @@ a.button:hover{
 .productpageblock > a.button {
 	width: 80%;
 	font-size: 11px;
-	margin: 0 auto !important;
+	margin: 0 auto 5px !important;
 }
 
 .productname {
