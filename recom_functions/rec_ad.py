@@ -1,6 +1,6 @@
-from test_functions.rec_ad_create_tabel import Create_rec_ad
-from test_functions.rec_prev_freq import Get_freq
-from test_functions.rec_ad_match import Rec_match
+from recom_functions.rec_ad_create_tabel import Create_rec_ad
+from recom_functions.rec_prev_freq import Get_freq
+from recom_functions.rec_ad_match import Rec_match
 
 
 class rec_ad_engine:

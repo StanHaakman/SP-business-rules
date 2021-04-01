@@ -1,4 +1,4 @@
-from test_functions.config import config
+from recom_functions.config import config
 import psycopg2
 import pandas as pd
 

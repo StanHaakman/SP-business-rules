@@ -1,4 +1,4 @@
-from test_functions._base_functions import where_clause, or_clause
+from recom_functions._base_functions import where_clause, or_clause
 
 import itertools
 import psycopg2

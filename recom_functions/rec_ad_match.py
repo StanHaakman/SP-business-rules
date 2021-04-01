@@ -1,8 +1,8 @@
 import pandas as pd
 import psycopg2
 
-from test_functions.config import config
-from test_functions.rec_prev_freq import Get_freq
+from recom_functions.config import config
+from recom_functions.rec_prev_freq import Get_freq
 
 
 class Rec_match:
