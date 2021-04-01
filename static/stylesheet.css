@@ -191,7 +191,7 @@ a.button:hover{
 	margin-right:9px;
 	margin-bottom:10px;
 	width:130px;
-	height:130px;
+	height:170px;
 	display: flex;
 	float:left;
 	font-size:12px;
@@ -202,7 +202,12 @@ a.button:hover{
 	background-color: #ffffff;
 }
 
-
+.product-details {
+	min-height: 130px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-evenly;
+}
 
 .productpageblock > a.button {
 	width: 80%;
@@ -215,6 +220,7 @@ a.button:hover{
 	font-size:12px;
 	margin-top:10px;
 	margin-bottom:3px;
+	padding: 2px 2px;
 }
 
 .productprice {
