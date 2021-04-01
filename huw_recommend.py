@@ -7,10 +7,10 @@ import os
 from pymongo import MongoClient
 from dotenv import load_dotenv
 
-from test_functions.rec_prev_freq import Get_freq
-from test_functions.rec_ad_match import Rec_match
-from test_functions.config import config
-from test_functions.rec_repeatables import get_herhaal_Item_IDs
+from recom_functions.rec_prev_freq import Get_freq
+from recom_functions.rec_ad_match import Rec_match
+from recom_functions.config import config
+from recom_functions.rec_repeatables import get_herhaal_Item_IDs
 
 app = Flask(__name__)
 api = Api(app)

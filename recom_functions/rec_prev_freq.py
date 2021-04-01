@@ -1,8 +1,8 @@
 import pandas as pd
 import psycopg2
 
-from test_functions._base_functions import get_data_query_fetchone
-from test_functions.config import config
+from recom_functions._base_functions import get_data_query_fetchone
+from recom_functions.config import config
 
 
 class Get_freq:
