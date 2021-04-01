@@ -1,5 +1,5 @@
 from recom_functions._base_functions import where_clause, or_clause
-
+import operator
 import itertools
 import psycopg2
 
@@ -69,6 +69,7 @@ def put_in_table(profileID, recommendlist, cur):
 
 
 def get_herhaal_Item_IDs(profileID):
+    idDict = {}
     con = psycopg2.connect(
         host='localhost',
         password='postgres',
@@ -87,13 +88,24 @@ def get_herhaal_Item_IDs(profileID):
 
     recommend_id_list = get_item_ID("idproducts", "repeatables", "idproducts", perfectidlist, cur)
 
+    for i in recommend_id_list:
+        if i not in idDict.keys():
+            idDict[i] = 1
+        else:
+            idDict[i] += 1
+
+    #sorteer de dictionary op hoogste values
+    sorted_idDict = dict(sorted(idDict.items(), key=operator.itemgetter(1), reverse=True))
+
+    finalidlist = list(sorted_idDict.keys())
+
     # put_in_table(profileID, recommend_id_list, cur)
 
     con.commit()
     cur.close()
     con.close()
 
-    return recommend_id_list[:4]
+    return finalidlist[:4]
 
 
 def create_repeatable_per_visitor():

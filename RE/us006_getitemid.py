@@ -1,5 +1,5 @@
 from _functions._base_functions import where_clause
-
+import operator
 import itertools
 import psycopg2
 
@@ -70,9 +70,11 @@ def put_in_table(profileID, recommendlist, cur):
 
 def get_herhaal_Item_IDs(profileID):
 
+    idDict = {}
+
     con = psycopg2.connect(
         host='localhost',
-        password='postgres',
+        password='',
         user='postgres',
         database='huwebshop'
     )
@@ -86,12 +88,27 @@ def get_herhaal_Item_IDs(profileID):
 
     recommend_id_list = get_item_ID("idproducts", "repeatables", "idproducts", perfectidlist, cur)
 
-    put_in_table(profileID, recommend_id_list, cur)
+    for i in recommend_id_list:
+        if i not in idDict.keys():
+            idDict[i] = 1
+        else:
+            idDict[i] += 1
+
+    #sorteer de dictionary op hoogste values
+    sorted_idDict = dict(sorted(idDict.items(), key=operator.itemgetter(1), reverse=True))
+    print(sorted_idDict)
+
+    finalidlist = list(sorted_idDict.keys())
+    print(finalidlist)
+
+    #put_in_table(profileID, recommend_id_list, cur)
+
+
 
     con.commit()
     cur.close()
     con.close()
-
+    return recommend_id_list
 
 def create_repeatable_per_visitor():
     deletequery = "DROP TABLE IF EXISTS visitorrepeatable CASCADE "
@@ -115,3 +132,8 @@ def create_repeatable_per_visitor():
     con.commit()
     cur.close()
     con.close()
+
+
+print(get_herhaal_Item_IDs("5a396e36a825610001bbb368"))    # geeft 15 items
+#print(get_herhaal_Item_IDs("5a39557bed2959000103a409"))    # geeft 3 items
+#print(get_herhaal_Item_IDs("5a394ce4a825610001bb7d7b"))    # geeft 4 items
