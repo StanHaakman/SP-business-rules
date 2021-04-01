@@ -4,7 +4,7 @@
 <div id="products">
 	{% for product in packet.itemsincart %}
 	<div class="productpageblock hublueborder">
-		<a href="/productdetail/{{ product.id }}">
+		<a href="/productdetail/{{ product.id }}" class="product-details">
 			<div class="productname">{{ product.name }}</div>
 			<div class="productprice">{{ product.price }}</div>
 			<div class="productdiscount">{{ product.discount }}</div>
