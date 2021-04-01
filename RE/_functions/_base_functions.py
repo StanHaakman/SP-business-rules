@@ -131,7 +131,6 @@ def where_clause(valuename, valueslist):
     clause = ""
 
     if len(valueslist) <= 3:
-        print(f"there are {len(valueslist)} in the list")
         raise Exception("not enough products have been found, function could not be executed")
 
     for i in range(len(valueslist)):
