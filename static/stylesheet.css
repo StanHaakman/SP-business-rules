@@ -23,11 +23,20 @@
 body {
 	font-family:'Roboto',sans-serif;
 	text-align:center;
+	position: relative;
+	margin: 0;
+	background-color: #eee;
 }
 
 body, a:link, a:visited, a:hover, a:active {
 	color:#272727;
 	text-decoration:none;
+}
+
+#header {
+	position: sticky;
+	width: 100vw;
+	top: -131px;
 }
 
 .centerstage {
@@ -183,9 +192,20 @@ a.button:hover{
 	margin-bottom:10px;
 	width:130px;
 	height:130px;
-	display:block;
+	display: flex;
 	float:left;
 	font-size:12px;
+	align-content: center;
+	justify-content: space-between;
+	padding: 2px 0;
+	flex-direction: column;
+	background-color: #ffffff;
+}
+
+.productpageblock > a.button {
+	width: 80%;
+	font-size: 11px;
+	margin: 0 auto !important;
 }
 
 .productname {
@@ -207,6 +227,7 @@ a.button:hover{
 	margin-top:2px;
 	margin-bottom:2px;
 	color:white;
+	background-color: #0092d2;
 }
 
 .productitemcount {
