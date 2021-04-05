@@ -4,35 +4,34 @@ import itertools
 import psycopg2
 
 
-#class Repeatable:
-
+# class Repeatable:
 def filter_list_of_strings_of_list(lijst):
-
     firstfilter = []
     secondfilter = []
 
-    #kijk of de lijst een of meerdere strings bevat
+    # kijk of de lijst een of meerdere strings bevat
     if isinstance(lijst[0], str):
         for i in range(len(lijst)):
             firstfilter.append(eval(lijst[i]))
 
-    #kijk of de lijst een of meerdere lijsten bevat
+    # kijk of de lijst een of meerdere lijsten bevat
     if isinstance(firstfilter[0], list):
         for sublist in firstfilter:
             for item in sublist:
                 secondfilter.append(item)
 
     return secondfilter
-  
+
+
 def get_profile_buids(profileID, cur):
     """takes a profile ID and returns all buids belonging to that profile"""
 
-    #creates and executes query
+    # creates and executes query
     query = f"SELECT buids FROM visitors WHERE (idvisitors = '{profileID}')"
     cur.execute(query)
     buidslist = cur.fetchall()
 
-    #filters the buids where possible
+    # filters the buids where possible
     finallist = (list(itertools.chain(*buidslist)))
     try:
         finallist = eval(finallist[0])
@@ -46,15 +45,15 @@ def get_item_ID(tablevalues, tablename, valuename, valuelist, cur):
     """creates a where clause for a query, executes the query and filters the list"""
 
     newidlist = []
-    #create the where clause and checks if string is not empty (if it is, raise exception
+    # create the where clause and checks if string is not empty (if it is, raise exception
     whereclause = where_clause(valuename, valuelist)
 
-    #create and execute the query
+    # create and execute the query
     query = f"SELECT {tablevalues} FROM {tablename} {whereclause}"
     cur.execute(query)
     idlist = cur.fetchall()
 
-    #filter the resulting list
+    # filter the resulting list
     finalidlist = list(itertools.chain(*idlist))
 
     return finalidlist
@@ -69,7 +68,6 @@ def put_in_table(profileID, recommendlist, cur):
 
 
 def get_herhaal_Item_IDs(profileID):
-
     idDict = {}
 
     con = psycopg2.connect(
@@ -94,21 +92,20 @@ def get_herhaal_Item_IDs(profileID):
         else:
             idDict[i] += 1
 
-    #sorteer de dictionary op hoogste values
+    # sorteer de dictionary op hoogste values
     sorted_idDict = dict(sorted(idDict.items(), key=operator.itemgetter(1), reverse=True))
     print(sorted_idDict)
 
     finalidlist = list(sorted_idDict.keys())
     print(finalidlist)
 
-    #put_in_table(profileID, recommend_id_list, cur)
-
-
+    # put_in_table(profileID, recommend_id_list, cur)
 
     con.commit()
     cur.close()
     con.close()
     return recommend_id_list
+
 
 def create_repeatable_per_visitor():
     deletequery = "DROP TABLE IF EXISTS visitorrepeatable CASCADE "
@@ -134,6 +131,6 @@ def create_repeatable_per_visitor():
     con.close()
 
 
-print(get_herhaal_Item_IDs("5a396e36a825610001bbb368"))    # geeft 15 items
-#print(get_herhaal_Item_IDs("5a39557bed2959000103a409"))    # geeft 3 items
-#print(get_herhaal_Item_IDs("5a394ce4a825610001bb7d7b"))    # geeft 4 items
+print(get_herhaal_Item_IDs("5a396e36a825610001bbb368"))  # geeft 15 items
+# print(get_herhaal_Item_IDs("5a39557bed2959000103a409"))    # geeft 3 items
+# print(get_herhaal_Item_IDs("5a394ce4a825610001bb7d7b"))    # geeft 4 items
