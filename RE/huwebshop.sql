@@ -23,6 +23,7 @@ CREATE TABLE IF NOT EXISTS Products (
   brand VARCHAR(255) NULL,
   category VARCHAR(255) NULL,
     sub_category VARCHAR(255) NULL,
+    sub_sub_category VARCHAR(255) NULL,
   deeplink VARCHAR(255) NULL,
   doelgroep VARCHAR(255) NULL,
   fastmover BOOLEAN NULL,

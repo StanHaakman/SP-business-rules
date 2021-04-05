@@ -17,3 +17,6 @@ class rec_ad_engine:
         df = self.get_freq.get_dataframe(id='5a39414ba825610001bb6f3d')
         lst = self.match.check_match(df=df)
         return lst
+
+ad = rec_ad_engine()
+ad.create_ad_table()
