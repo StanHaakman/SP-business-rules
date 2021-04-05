@@ -31,13 +31,31 @@ class Rec_match:
         print(df)
 
         for i, row in df.iterrows():
-            query_get = f"select idproducts from acties where category = '{row['category']}' and target = '{row['target']}' order by random() limit 2;"
+            query_get = f"select idproducts from acties where sub_sub_category = '{row['sub_sub_category']}' and target = '{row['target']}' order by random() limit 2;"
             cur.execute(query_get)
             data = cur.fetchall()
             if data == empty_lst:
-                query_get = f"select idproducts from acties where category = '{row['category']}' order by random() limit 2;"
+                query_get = f"select idproducts from acties where sub_sub_category = '{row['sub_sub_category']}' order by random() limit 2;"
                 cur.execute(query_get)
                 data = cur.fetchall()
+                if data == empty_lst:
+                    query_get = f"select idproducts from acties where sub_category = '{row['sub_category']}' and target = '{row['target']}' order by random() limit 2;"
+                    cur.execute(query_get)
+                    data = cur.fetchall()
+                    if data == empty_lst:
+                        query_get = f"select idproducts from acties where sub_category = '{row['sub_category']}' order by random() limit 2;"
+                        cur.execute(query_get)
+                        data = cur.fetchall()
+                        if data == empty_lst:
+                            query_get = f"select idproducts from acties where category = '{row['category']}' and target = '{row['target']}' order by random() limit 2;"
+                            cur.execute(query_get)
+                            data = cur.fetchall()
+                            if data == empty_lst:
+                                query_get = f"select idproducts from acties where category = '{row['category']}' order by random() limit 2;"
+                                cur.execute(query_get)
+                                data = cur.fetchall()
+
+
             lst.append(data)
 
         lst = self.filter_lst(lst=lst)
