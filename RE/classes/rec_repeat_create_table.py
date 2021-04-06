@@ -34,7 +34,7 @@ class CreateRepeat:
         def get_first_from_tuple(tupl):
             return tupl[0]
 
-        repeatables = pd.DataFrame(data={'ids': list(map(get_first_from_tuple, Counter(new_list).most_common(100)))})
+        repeatables = pd.DataFrame(data={'ids': list(map(get_first_from_tuple, Counter(new_list).most_common(500)))})
 
         return repeatables
 
