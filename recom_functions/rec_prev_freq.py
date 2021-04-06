@@ -10,34 +10,17 @@ class GetFreq:
     def __init__(self):
         db = config()
         self.con = psycopg2.connect(**db)
+        self.cur = self.con.cursor()
 
-    def get_query(self, visitorID):
-        SQL_query = "select previously_recommended from visitors where idvisitors = '{}';".format(visitorID)
-        data = get_data_query_fetchone(SQL_query)
-        lst = list(eval(data[0]))
-        return lst
+    def get_visitor_info(self, id):
+        query = f"select previously_recommended from visitors where idvisitors = '{id}'"
+        self.cur.execute(query)
+        data = self.cur.fetchall()
+        for i in data:
+            data = eval(i[0])
+        return data
 
-    def freq(self, lst):
-        freqs = dict()
-        for x in lst:
-            if x not in freqs:
-                freqs.update({x: 1})
-                pass
-            else:
-                freqs[x] += 1
-            pass
-        return freqs
-
-    def filter_freq_to_list(self, dict, iterator):
-        lst = []
-
-        for x in range(-1, iterator - 1):
-            lst.append(list(dict)[x])
-            pass
-        return lst
-
-    def get_product_info_from_ids(self, lst_id):
-
+    def get_df(self, lst_id):
         lst_category = []
         lst_sub_category = []
         lst_sub_sub_category = []
@@ -59,10 +42,18 @@ class GetFreq:
 
         return df
 
-    def get_dataframe(self, id):
-        lst = self.get_query(visitorID=id)
-        freqs = self.freq(lst)
-        filtered_ids = self.filter_freq_to_list(freqs, 2)
+    def data_count(self, old_df):
+        df = pd.DataFrame()
 
-        df = self.get_product_info_from_ids(filtered_ids)
+        df['category'] = old_df['category'].value_counts()[:2].index.tolist()
+        df['sub_category'] = old_df['sub_category'].value_counts()[:2].index.tolist()
+        df['sub_sub_category'] = old_df['sub_sub_category'].value_counts()[:2].index.tolist()
+        df['target'] = old_df['target'].value_counts()[:2].index.tolist()
+
+        return df
+
+    def get_dataframe(self, id):
+        lst = self.get_visitor_info(id=id)
+        df = self.get_df(lst)
+        df = self.data_count(old_df=df)
         return df

@@ -40,20 +40,16 @@ def get_df(lst_id):
     return df
 
 
-def data_count(old_df, type):
+def data_count(old_df):
     df = pd.DataFrame()
-    if type == 'category':
-        df['category'] = old_df['category'].value_counts()[:2].index.tolist()
-    if type == 'sub_category':
-        df['sub_category'] = old_df['sub_category'].value_counts()[:2].index.tolist()
-    if type == 'sub_sub_category':
-        df['sub_sub_category'] = old_df['sub_sub_category'].value_counts()[:2].index.tolist()
-    if type == 'target':
-        df['target'] = old_df['target'].value_counts()[:2].index.tolist()
+    df['category'] = old_df['category'].value_counts()[:2].index.tolist()
+    df['sub_category'] = old_df['sub_category'].value_counts()[:2].index.tolist()
+    df['sub_sub_category'] = old_df['sub_sub_category'].value_counts()[:2].index.tolist()
+    df['target'] = old_df['target'].value_counts()[:2].index.tolist()
 
     return df
 
 
 lst = get_visitor_info('5a39414ba825610001bb6f3d')
 df = get_df(lst)
-print(data_count(df, 'sub_sub_category'))
+print(data_count(df))
