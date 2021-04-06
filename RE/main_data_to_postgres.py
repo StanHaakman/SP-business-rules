@@ -1,12 +1,15 @@
 import os
 from sys import platform
 
+from rec_popular_products import create_popular_products
 from _functions.setup_database import create_database, fill_database, drop_database
 from classes.products_filter import FilterProducts
 from classes.profiles_filter import FilterProfiles
 from classes.sessions_filter import FilterSessions
 from classes.pymongo_converter import Converter
 from classes.send_data import DataSender
+from classes.rec_ad_create_tabel import Create_rec_ad
+from classes.rec_repeat_create_table import CreateRepeat
 
 
 CSV_location = 'RE/CSV/' if platform == "darwin" else "RE\\CSV\\"
@@ -65,3 +68,12 @@ data_sender.copy_profiles_csv(pathname=absolutepath + '{}{}profiles.csv'.format(
 
 data_sender.copy_sessions_csv(pathname=absolutepath + '{}{}sessions.csv'.format('/' if platform == "darwin" else '\\',
                                                                                 CSV_location))
+create_popular_products()
+
+Create_rec_ad().create_table()
+
+create = CreateRepeat()
+create.create_table_repeat()
+create.create_table_repeat_popular()
+create.close_con()
+

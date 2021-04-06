@@ -1,4 +1,3 @@
-import pandas as pd
 import psycopg2
 
 from recom_functions.config import config

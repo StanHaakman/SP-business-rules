@@ -10,50 +10,50 @@ CSV_location = 'RE/CSV/' if platform == "darwin" else "RE\\CSV\\"
 absolutepath = os.getcwd()
 
 
-def getPopularID(df):
-    idDict = {}
+def create_popular_products():
+    def getPopularID(df):
+        idDict = {}
 
-    result = df['products'].squeeze()
+        result = df['products'].squeeze()
 
-    for i in result:
-        if not i:
-            print("List is empty")
-            continue
-        elif i[0]['id'] not in idDict.keys():
-            idDict[i[0]['id']] = 1
-        else:
-            idDict[i[0]['id']] += 1
+        for i in result:
+            if not i:
+                print("List is empty")
+                continue
+            elif i[0]['id'] not in idDict.keys():
+                idDict[i[0]['id']] = 1
+            else:
+                idDict[i[0]['id']] += 1
 
-    sorted_idDict = dict(sorted(idDict.items(), key=operator.itemgetter(1), reverse=True))
+        sorted_idDict = dict(sorted(idDict.items(), key=operator.itemgetter(1), reverse=True))
 
-    keys_list = list(sorted_idDict.keys())
-    popular_idlist = []
-    for i in range(4):
-        popular_idlist.append(keys_list[i])
+        keys_list = list(sorted_idDict.keys())
+        popular_idlist = []
+        for i in range(4):
+            popular_idlist.append(keys_list[i])
 
-    return popular_idlist
+        return popular_idlist
 
+    empty_db_table(tablename='popular_products')
 
-empty_db_table(tablename='popular_products')
+    converter = Converter()
 
-converter = Converter()
+    converter.sessions(fieldnames=['has_sale', '_id', 'order.products'], filename=f'sessions_has_sale.csv')
 
-converter.sessions(fieldnames=['has_sale', '_id', 'order.products'], filename=f'sessions_has_sale.csv')
+    filter_sessions = FilterSessions()
 
-filter_sessions = FilterSessions()
+    filter_sessions.load_dataframe(filename=f'{CSV_location}sessions_has_sale.csv')
+    filter_sessions.has_filter()
+    filter_sessions.drop_column(['has_sale', '_id'])
+    df = filter_sessions.fix_alles()
+    filter_sessions.save_dataframe(filename=f'{CSV_location}sessions_has_sale.csv')
 
-filter_sessions.load_dataframe(filename=f'{CSV_location}sessions_has_sale.csv')
-filter_sessions.has_filter()
-filter_sessions.drop_column(['has_sale', '_id'])
-df = filter_sessions.fix_alles()
-filter_sessions.save_dataframe(filename=f'{CSV_location}sessions_has_sale.csv')
+    popular_id_list = getPopularID(df=df)
 
-popular_id_list = getPopularID(df=df)
+    tablename = 'Popular_products'
+    columns = '_id SERIAL NOT NULL, idproducts VARCHAR NOT NULL'
 
-tablename = 'Popular_products'
-columns = '_id SERIAL NOT NULL, idproducts VARCHAR NOT NULL'
+    create_table(tablename, columns)
 
-create_table(tablename, columns)
-
-store_query = f"insert into {tablename} (idproducts) values (%s)"
-store_data(store_query, popular_id_list)
+    store_query = f"insert into {tablename} (idproducts) values (%s)"
+    store_data(store_query, popular_id_list)
