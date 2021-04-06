@@ -6,12 +6,12 @@ from _functions._base_functions import create_table, store_data, empty_db_table
 from classes.pymongo_converter import Converter
 from classes.sessions_filter import FilterSessions
 
-CSV_location = 'RE/CSV/' if platform == "darwin" else "RE\\CSV\\"
+CSV_location = 'database_interactions/CSV/' if platform == "darwin" else "database_interactions\\CSV\\"
 absolutepath = os.getcwd()
 
 
 def create_popular_products():
-    def getPopularID(df):
+    def get_popular_id(df):
         idDict = {}
 
         result = df['products'].squeeze()
@@ -48,7 +48,7 @@ def create_popular_products():
     df = filter_sessions.fix_alles()
     filter_sessions.save_dataframe(filename=f'{CSV_location}sessions_has_sale.csv')
 
-    popular_id_list = getPopularID(df=df)
+    popular_id_list = get_popular_id(df=df)
 
     tablename = 'Popular_products'
     columns = '_id SERIAL NOT NULL, idproducts VARCHAR NOT NULL'

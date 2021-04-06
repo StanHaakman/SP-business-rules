@@ -8,13 +8,13 @@ class DataSender:
     def __init__(self):
         pass
 
-    def openconnection(self):
+    def open_connection(self):
         db = config()
         con = psycopg2.connect(**db)
         return con
 
     def copy_products_csv(self, pathname):
-        con = self.openconnection()
+        con = self.open_connection()
         cur = con.cursor()
 
         query = f"COPY products( idproducts, name, brand, category, sub_category, sub_sub_category, deeplink, doelgroep, fastmover, target, herhaalaankopen, price, folder_actief, discount )" \
@@ -27,7 +27,7 @@ class DataSender:
         con.close()
 
     def copy_products_properties_csv(self, pathname):
-        con = self.openconnection()
+        con = self.open_connection()
         cur = con.cursor()
 
         query = f"COPY properties( products_idproducts,properties )" \
@@ -42,7 +42,7 @@ class DataSender:
         con.close()
 
     def copy_profiles_csv(self, pathname):
-        con = self.openconnection()
+        con = self.open_connection()
         cur = con.cursor()
 
         query = f"COPY visitors(idVisitors, TypeVisitors, previously_recommended, buids )" \
@@ -55,7 +55,7 @@ class DataSender:
         con.close()
 
     def copy_sessions_csv(self, pathname):
-        con = self.openconnection()
+        con = self.open_connection()
         cur = con.cursor()
 
         query = f"COPY sessions( idsessions, identifier, has_sale, buid, products )" \
@@ -68,7 +68,7 @@ class DataSender:
         con.close()
 
     def copy_sessions_buids_csv(self, pathname):
-        con = self.openconnection()
+        con = self.open_connection()
         cur = con.cursor()
 
         query = f"COPY buids( buids, sessions_idsessions )" \
@@ -81,7 +81,7 @@ class DataSender:
         con.close()
 
     def copy_sessions_has_sale_csv(self, pathname):
-        con = self.openconnection()
+        con = self.open_connection()
         cur = con.cursor()
 
         query = f"COPY orders(Products_idProducts, Sessions_idSessions, has_been_sold)" \
@@ -94,7 +94,7 @@ class DataSender:
         con.close()
 
     def copy_sessions_buids_csv(self, pathname):
-        con = self.openconnection()
+        con = self.open_connection()
         cur = con.cursor()
 
         query = f"COPY buids( buids, sessions_idsessions )" \

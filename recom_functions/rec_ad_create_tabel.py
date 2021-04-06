@@ -2,7 +2,7 @@ from recom_functions.config import config
 import psycopg2
 import pandas as pd
 
-class Create_rec_ad:
+class CreateRecAd:
 
     def __init__(self):
         db = config()

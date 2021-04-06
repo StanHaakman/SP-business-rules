@@ -3,8 +3,6 @@ from psycopg2.extensions import ISOLATION_LEVEL_AUTOCOMMIT
 from psycopg2.extras import execute_batch
 from _functions.config import config
 
-
-
 def drop_table(tablename):
     try:
         con = connect_to_db()
@@ -121,6 +119,7 @@ def update_many_query(tablename, change_column_name, change_condition_name, valu
 
     except (Exception, psycopg2.DatabaseError) as error:
         print(error)
+
 
 def where_clause(valuename, valueslist):
     """creates a where clause for a query, taking a list with values and looping through it to create the entire clause.

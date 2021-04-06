@@ -1,7 +1,7 @@
 import psycopg2
 
 from recom_functions.config import config
-from recom_functions.rec_prev_freq import Get_freq
+from recom_functions.rec_prev_freq import GetFreq
 
 
 class Rec_match:
@@ -9,7 +9,7 @@ class Rec_match:
     def __init__(self):
         db = config()
         self.con = psycopg2.connect(**db)
-        self.get_freq = Get_freq()
+        self.get_freq = GetFreq()
         self.cur = self.con.cursor()
 
     def filter_lst(self, lst):
