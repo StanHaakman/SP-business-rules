@@ -50,6 +50,8 @@ def data_count(old_df):
     return df
 
 
-lst = get_visitor_info('5a39414ba825610001bb6f3d')
+lst = get_visitor_info('5a393eceed295900010386a8')
 df = get_df(lst)
-print(data_count(df))
+df = data_count(df)
+print(df['sub_sub_category'])
+print(df['target'])
