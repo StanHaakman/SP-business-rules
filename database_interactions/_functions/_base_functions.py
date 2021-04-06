@@ -137,3 +137,11 @@ def where_clause(valuename, valueslist):
             clause += f" OR {valuename} = '{valueslist[i]}'"
 
     return clause
+
+
+def get_first_from_tuple(tupl):
+    return tupl[0]
+
+
+def get_id_from_dict_in_list(dict):
+    return dict[0]['id']

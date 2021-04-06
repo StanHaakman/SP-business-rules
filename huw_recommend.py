@@ -44,7 +44,7 @@ class SimpleRecom(Resource):
         db = config()
         con = psycopg2.connect(**db)
         cur = con.cursor()
-        query = "select idproducts from popular_products"
+        query = "select idproducts from popular_products limit(4)"
         cur.execute(query)
         con.commit()
         row = list(cur.fetchall())
