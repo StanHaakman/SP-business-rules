@@ -32,6 +32,7 @@ CREATE TABLE IF NOT EXISTS Products (
   price DECIMAL NULL,
   stocklevel INT NULL,
     folder_actief VARCHAR null,
+    discount VARCHAR null,
   PRIMARY KEY (idProducts))
 ;
 
