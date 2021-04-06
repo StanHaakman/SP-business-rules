@@ -1,3 +1,4 @@
+from _functions._base_functions import get_first_from_tuple
 from _functions.config import config
 import psycopg2
 import pandas as pd
@@ -30,9 +31,6 @@ class CreateRepeat:
                     new_list.append(y)
                 else:
                     pass
-
-        def get_first_from_tuple(tupl):
-            return tupl[0]
 
         repeatables = pd.DataFrame(data={'ids': list(map(get_first_from_tuple, Counter(new_list).most_common(500)))})
 
