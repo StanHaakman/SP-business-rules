@@ -23,7 +23,7 @@ class Converter:
         :param collection:
         :return:
         '''
-        with open(f'RE/CSV/{filename}', 'w+', newline='', encoding='UTF-8') as csvout:
+        with open(f'database_interactions/CSV/{filename}', 'w+', newline='', encoding='UTF-8') as csvout:
             '''
             If fieldname has a . in it strip everything befor the .
             '''

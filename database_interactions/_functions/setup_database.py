@@ -10,7 +10,7 @@ def drop_database(dbname):
 
     # Configure parser for database.ini
     parser = ConfigParser()
-    parser.read('RE/database.ini')
+    parser.read('database_interactions/database.ini')
 
     # If Database line exists remove it otherwise pass
     try:
@@ -46,7 +46,7 @@ def create_database(dbname='huwebshop'):
 
     # Configure parser for database.ini
     parser = ConfigParser()
-    parser.read('RE/database.ini')
+    parser.read('database_interactions/database.ini')
 
     # If Database line exists remove it otherwise pass
     try:
@@ -79,7 +79,7 @@ def create_database(dbname='huwebshop'):
     print(f'{dbname} aangevuld aan de database.ini file')
 
 
-def fill_database(sqlfile='RE/huwebshop.sql'):
+def fill_database(sqlfile='database_interactions/huwebshop.sql'):
     '''
     Fill the database with the database structure from a sql file.
     :param sqlfile:

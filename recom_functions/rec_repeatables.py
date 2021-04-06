@@ -79,29 +79,28 @@ def get_herhaal_Item_IDs(profileID):
     )
     cur = con.cursor()
 
-    #get all user sessions
+    # get all user sessions
     buids_list = get_profile_buids(profileID, cur)
 
-    #get all products user has bought
+    # get all products user has bought
     prod_id_list = get_item_ID("products", "sessions", "buid", buids_list, cur)
 
-    #if list is not empty, filter the list to get correct type
+    # if list is not empty, filter the list to get correct type
     if len(prod_id_list) < 1:
         return []
     perfectidlist = filter_list_of_strings_of_list(prod_id_list)
 
-    #get all items from the repeatables products
+    # get all items from the repeatables products
     recommend_id_list = get_item_ID("idproducts", "repeatables", "idproducts", perfectidlist, cur)
 
-
-    #put all the item ids in a dictionary with amount bought in the history
+    # put all the item ids in a dictionary with amount bought in the history
     for i in recommend_id_list:
         if i not in idDict.keys():
             idDict[i] = 1
         else:
             idDict[i] += 1
 
-    #sort the dictionary to highest values
+    # sort the dictionary to highest values
     sorted_idDict = dict(sorted(idDict.items(), key=operator.itemgetter(1), reverse=True))
 
     allrepeatables = list(sorted_idDict.keys())
@@ -110,10 +109,10 @@ def get_herhaal_Item_IDs(profileID):
     # get all items from the 100 most popular repeatables products
     toprepeatables = get_item_ID("idproducts", "popular_repeatables", "idproducts", perfectidlist, cur)
 
-    #merge lists together
+    # merge lists together
     almostidlist = toprepeatables + allrepeatables
 
-    #filter doubles out of the list
+    # filter doubles out of the list
     [finalids.append(x) for x in almostidlist if x not in finalids]
 
     con.commit()
@@ -121,7 +120,6 @@ def get_herhaal_Item_IDs(profileID):
     con.close()
 
     return finalids[:4]
-
 
 
 def create_repeatable_per_visitor():
@@ -133,7 +131,6 @@ def create_repeatable_per_visitor():
                   "recomm_three VARCHAR(255) NOT NULL, " \
                   "recomm_four VARCHAR(255) NOT NULL, " \
                   "PRIMARY KEY (visitorID))"
-
 
     con = psycopg2.connect(
         host='localhost',

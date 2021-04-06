@@ -7,7 +7,7 @@ import os
 from pymongo import MongoClient
 from dotenv import load_dotenv
 
-from recom_functions.rec_prev_freq import Get_freq
+from recom_functions.rec_prev_freq import GetFreq
 from recom_functions.rec_ad_match import Rec_match
 from recom_functions.config import config
 from recom_functions.rec_repeatables import get_herhaal_Item_IDs
@@ -64,7 +64,7 @@ class SimpleRecom(Resource):
 class AdRecom(Resource):
 
     def get_ad_products(self, profileid):
-        df = Get_freq().get_dataframe(id=profileid)
+        df = GetFreq().get_dataframe(id=profileid)
         lst = Rec_match().check_match(df=df)
         return lst
 

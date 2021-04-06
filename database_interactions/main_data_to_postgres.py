@@ -8,11 +8,11 @@ from classes.profiles_filter import FilterProfiles
 from classes.sessions_filter import FilterSessions
 from classes.pymongo_converter import Converter
 from classes.send_data import DataSender
-from classes.rec_ad_create_tabel import Create_rec_ad
+from classes.rec_ad_create_tabel import CreateRecAd
 from classes.rec_repeat_create_table import CreateRepeat
 
 
-CSV_location = 'RE/CSV/' if platform == "darwin" else "RE\\CSV\\"
+CSV_location = 'database_interactions/CSV/' if platform == "darwin" else "database_interactions\\CSV\\"
 
 absolutepath = os.getcwd()
 
@@ -70,7 +70,7 @@ data_sender.copy_sessions_csv(pathname=absolutepath + '{}{}sessions.csv'.format(
                                                                                 CSV_location))
 create_popular_products()
 
-Create_rec_ad().create_table()
+CreateRecAd().create_table()
 
 create = CreateRepeat()
 create.create_table_repeat()
