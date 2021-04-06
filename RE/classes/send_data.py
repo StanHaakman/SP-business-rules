@@ -17,7 +17,7 @@ class DataSender:
         con = self.openconnection()
         cur = con.cursor()
 
-        query = f"COPY products( idproducts, name, brand, category, sub_category, sub_sub_category, deeplink, doelgroep, fastmover, target, herhaalaankopen, price, folder_actief )" \
+        query = f"COPY products( idproducts, name, brand, category, sub_category, sub_sub_category, deeplink, doelgroep, fastmover, target, herhaalaankopen, price, folder_actief, discount )" \
                 f"FROM '{pathname}'" \
                 f"DELIMITER ','" \
                 f"CSV HEADER;"
