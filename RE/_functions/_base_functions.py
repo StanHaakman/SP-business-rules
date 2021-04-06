@@ -67,7 +67,6 @@ def get_data_query(query):
         data = cur.fetchall()
         con.commit()
         con.close()
-        print('Data is retrieved')
         return data
 
     except (Exception, psycopg2.DatabaseError) as error:
@@ -83,7 +82,6 @@ def get_data_query_fetchone(query):
         data = cur.fetchone()
         con.commit()
         con.close()
-        print('Data is retrieved')
         return data
 
     except (Exception, psycopg2.DatabaseError) as error:
