@@ -75,7 +75,6 @@ class AdRecom(Resource):
 
 class RepRecom(Resource):
     def get_rep_products(self, profileid):
-
         list_items = get_herhaal_Item_IDs(profileid)
 
         return list_items
@@ -85,8 +84,27 @@ class RepRecom(Resource):
         return proids
 
 
+class SimilarOrderRecom(Resource):
+    def get_similar_products(self, productid):
+        return ["22309", "8533", "2036", "8570"]
+
+    def get(self, profileid, productid, count):
+        proid = self.get_similar_products(productid)
+        return proid
+
+
+class SimilarProductRecom(Resource):
+    def get_similar_products(self, productid):
+        return ["22309", "8533", "2036", "8570"]
+
+    def get(self, profileid, productid, count):
+        proid = self.get_similar_products(productid)
+        return proid
+
+
 # This method binds the Recom class to the REST API, to parse specifically
 # requests in the format described below.
-api.add_resource(SimpleRecom, "/<string:profileid>/<int:count>")
-api.add_resource(RepRecom, "/winkelmand/<string:profileid>/<int:count>")
-api.add_resource(AdRecom, '/home/<string:profileid>/<int:count>')
+api.add_resource(SimpleRecom, "/home/<string:profileid>/<int:count>")
+api.add_resource(SimilarOrderRecom, "/winkelmand/<string:profileid>/<string:productid>/<int:count>")
+api.add_resource(AdRecom, '/<string:profileid>/<int:count>')
+api.add_resource(SimilarProductRecom, '/productdetail/<string:profileid>/<string:productid>/<int:count>')
