@@ -4,4 +4,22 @@
 <p>{{ packet.product.description|safe }}</p>
 <h3>{{ packet.prepproduct.price }}</h3>
 <a href="#" function="add-to-shopping-cart" class="recommended-addtocart button hured" productid="{{ packet.product._id }}">In winkelmand</a>
+
+{% block suggestionbox %}
+			{% if packet.r_products %}
+			<h4>{{ packet.r_string }}</h4>
+			{% endif %}
+			<div id="recommendedproducts">
+				{% for product in packet.r_products %}
+					<div class="productpageblock">
+						<a href="/productdetail/{{ product.id }}" class="product-details">
+							<div class="productname">{{ product.name }}</div>
+							<div class="productprice">{{ product.price }}</div>
+							<div class="productdiscount">{{ product.discount }}</div>
+						</a>
+						<a href="#" function="add-to-shopping-cart" class="recommended-addtocart button hured" productid="{{ product.id }}">In winkelmand</a>
+					</div>
+				{% endfor %}
+			</div>
+			{% endblock %}
 {% endblock %}
