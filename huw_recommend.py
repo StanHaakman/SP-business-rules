@@ -104,7 +104,14 @@ class SimilarProductRecom(Resource):
 
 # This method binds the Recom class to the REST API, to parse specifically
 # requests in the format described below.
-api.add_resource(SimpleRecom, "/home/<string:profileid>/<int:count>")
-api.add_resource(SimilarOrderRecom, "/winkelmand/<string:profileid>/<string:productid>/<int:count>")
-api.add_resource(AdRecom, '/<string:profileid>/<int:count>')
+# Homepagina
+api.add_resource(AdRecom, '/home/<string:profileid>/<int:count>')
+
+# Productpagina
+api.add_resource(RepRecom, "/<string:profileid>/<int:count>")
+
+# Detailpagina
 api.add_resource(SimilarProductRecom, '/productdetail/<string:profileid>/<string:productid>/<int:count>')
+
+# Winkelmandje
+api.add_resource(SimilarOrderRecom, "/winkelmand/<string:profileid>/<string:productid>/<int:count>")
