@@ -33,7 +33,7 @@ class HUWebshop(object):
 
     productfields = ["name", "price.selling_price", "properties.discount", "images"]
 
-    recommendationtypes = {'popular':"Populaire producten",'similar':"Soortgelijke producten",'combination':'Combineert goed met','behaviour':'Passend bij uw gedrag','personal':'Persoonlijk aanbevolen', 'herhaalaankoop': 'Nogmaals bestellen', 'Advertentie': 'Acties voor u'}
+    recommendationtypes = {'popular':"Populaire producten",'similar':"Soortgelijke producten",'combination':'Combineert goed met','behaviour':'Passend bij uw gedrag','personal':'Persoonlijk aanbevolen', 'herhaalaankoop': 'Nogmaals bestellen', 'Advertentie': 'Advertentie producten', 'Acties': 'Producten in de actie'}
 
     """ ..:: Initialization and Category Index Functions ::.. """
 
@@ -271,8 +271,8 @@ class HUWebshop(object):
             'prevpage': pagepath+str(page-1) if (page > 1) else False, \
             'nextpage': pagepath+str(page+1) if (session['items_per_page']*page < prodcount) else False, \
             'r_products':self.recommendations(4), \
-            'r_type':list(self.recommendationtypes.keys())[0],\
-            'r_string':list(self.recommendationtypes.values())[0]\
+            'r_type':list(self.recommendationtypes.keys())[5],\
+            'r_string':list(self.recommendationtypes.values())[5]\
             })
 
     def productdetail(self, productid):
@@ -294,8 +294,8 @@ class HUWebshop(object):
             i.append(product)
         return self.renderpackettemplate('shoppingcart.html',{'itemsincart':i,\
             'r_products':self.recommendations(4, page='/winkelmand', productid=('/' + i[-1]['id']) if len(i) > 0 else ''), \
-            'r_type':list(self.recommendationtypes.keys())[5],\
-            'r_string':list(self.recommendationtypes.values())[5]})
+            'r_type':list(self.recommendationtypes.keys())[1],\
+            'r_string':list(self.recommendationtypes.values())[1]})
 
     def categoryoverview(self):
         """ This subpage shows all top-level categories in its main menu. """
