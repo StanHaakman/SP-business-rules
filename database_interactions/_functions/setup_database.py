@@ -38,11 +38,11 @@ def drop_database(dbname):
 
 
 def create_database(dbname='huwebshop'):
-    '''
+    """
     Function to create a new database and extend the database.ini file.
     :param dbname:
     :return:
-    '''
+    """
 
     # Configure parser for database.ini
     parser = ConfigParser()
@@ -80,11 +80,11 @@ def create_database(dbname='huwebshop'):
 
 
 def fill_database(sqlfile='database_interactions/huwebshop.sql'):
-    '''
+    """
     Fill the database with the database structure from a sql file.
     :param sqlfile:
     :return:
-    '''
+    """
     db = config()
     con = psycopg2.connect(**db)
     cursor = con.cursor()

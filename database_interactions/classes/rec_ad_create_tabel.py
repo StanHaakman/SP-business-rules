@@ -2,6 +2,7 @@ from _functions.config import config
 import psycopg2
 import pandas as pd
 
+
 class CreateRecAd:
 
     def __init__(self):

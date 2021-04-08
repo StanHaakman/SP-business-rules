@@ -4,17 +4,17 @@ import pymongo
 
 class Converter:
     def __init__(self):
-        '''
+        """
 
         Initieer the converter self value's
 
-        '''
+        """
         self.client = pymongo.MongoClient('localhost', 27017)
         self.database = self.client['huwebshop']
 
     @staticmethod
     def mongo_to_csv(fieldnames, filename, collection):
-        '''
+        """
 
         Convert the data from mongoDB to an csv file.
 
@@ -22,7 +22,7 @@ class Converter:
         :param filename:
         :param collection:
         :return:
-        '''
+        """
         with open(f'database_interactions/CSV/{filename}', 'w+', newline='', encoding='UTF-8') as csvout:
             '''
             If fieldname has a . in it strip everything befor the .
@@ -52,31 +52,31 @@ class Converter:
         print('Finished creating the database content')
 
     def products(self, fieldnames, filename):
-        '''
+        """
         Call the convert function with the wanted parameters to converts products.
         :param fieldnames:
         :param filename:
         :return:
-        '''
+        """
         collection = self.database.products
         self.mongo_to_csv(fieldnames, filename, collection)
 
     def profiles(self, fieldnames, filename):
-        '''
+        """
         Call the convert function with the wanted parameters to converts profiles.
         :param fieldnames:
         :param filename:
         :return:
-        '''
+        """
         collection = self.database.profiles
         self.mongo_to_csv(fieldnames, filename, collection)
 
     def sessions(self, fieldnames, filename):
-        '''
+        """
         Call the convert function with the wanted parameters to converts profiles.
         :param fieldnames:
         :param filename:
         :return:
-        '''
+        """
         collection = self.database.sessions
         self.mongo_to_csv(fieldnames, filename, collection)
