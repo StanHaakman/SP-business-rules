@@ -3,9 +3,6 @@ import pandas as pd
 from recom_functions.config import config
 
 
-
-
-
 class DiscountMatch:
 
     def __init__(self):
@@ -23,8 +20,10 @@ class DiscountMatch:
 
         data = []
         for i, row in df.iterrows():
-            query = f"select idproducts from products where sub_sub_category = '{row['sub_sub_category']}' and doelgroep = '{row['doelgroep']}' and target = '{row['target']}' limit 2; "
+            query = f"select idproducts from popular_products where sub_sub_category = '{row['sub_sub_category']}' and doelgroep = '{row['doelgroep']}' and target = '{row['target']}' and discount is not null limit 4; "
             self.cur.execute(query)
             data.append(self.cur.fetchall())
 
-        return data
+        filterd_data = [i[0] for i in data[0]]
+
+        return filterd_data

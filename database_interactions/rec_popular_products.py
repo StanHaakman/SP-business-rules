@@ -23,11 +23,11 @@ def create_popular_products():
 
     def update_popular_products(con):
 
-        values = pd.read_sql_query('select idproducts, category, sub_category, sub_sub_category, target, doelgroep from products', con)
+        values = pd.read_sql_query('select idproducts, category, sub_category, sub_sub_category, target, doelgroep, discount from products', con)
 
         for i, row in values.iterrows():
-            query_fill = f"""UPDATE popular_products set category = '%s', sub_category = '%s', sub_sub_category = '%s', target = '%s', doelgroep = '%s' where idproducts = '%s';""" % (
-                row['category'], row['sub_category'], row['sub_sub_category'], row['target'], row['doelgroep'], row['idproducts'])
+            query_fill = f"""UPDATE popular_products set category = '%s', sub_category = '%s', sub_sub_category = '%s', target = '%s', doelgroep = '%s', discount = '%s' where idproducts = '%s';""" % (
+                row['category'], row['sub_category'], row['sub_sub_category'], row['target'], row['doelgroep'], row['discount'], row['idproducts'])
             cur.execute(query_fill)
 
         con.commit()
@@ -50,7 +50,7 @@ def create_popular_products():
     popular_id_list = get_popular_products(df)
 
     tablename = 'popular_products'
-    columns = '_id SERIAL NOT NULL, idproducts VARCHAR NOT NULL, category VARCHAR NULL, sub_category VARCHAR NULL, sub_sub_category VARCHAR NULL, target VARCHAR NULL, doelgroep VARCHAR NULL'
+    columns = '_id SERIAL NOT NULL, idproducts VARCHAR NOT NULL, category VARCHAR NULL, sub_category VARCHAR NULL, sub_sub_category VARCHAR NULL, target VARCHAR NULL, doelgroep VARCHAR NULL, discount VARCHAR NULL'
 
     create_table(tablename, columns)
 
