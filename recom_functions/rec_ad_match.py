@@ -14,7 +14,6 @@ class Rec_match:
 
     def filter_lst(self, lst):
         new_lst = []
-        print(lst)
         for i in lst:
             try:
                 for j in i:

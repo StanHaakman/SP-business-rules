@@ -3,6 +3,7 @@ from psycopg2.extensions import ISOLATION_LEVEL_AUTOCOMMIT
 from psycopg2.extras import execute_batch
 from _functions.config import config
 
+
 def drop_table(tablename):
     try:
         con = connect_to_db()
@@ -57,7 +58,6 @@ def empty_db_table(tablename):
 
 
 def get_data_query(query):
-
     try:
         con = connect_to_db()
         cur = con.cursor()
@@ -72,7 +72,6 @@ def get_data_query(query):
 
 
 def get_data_query_fetchone(query):
-
     try:
         con = connect_to_db()
         cur = con.cursor()
@@ -87,7 +86,6 @@ def get_data_query_fetchone(query):
 
 
 def store_data(store_query, data):
-
     try:
         con = connect_to_db()
         cur = con.cursor()

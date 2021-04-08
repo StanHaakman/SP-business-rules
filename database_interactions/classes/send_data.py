@@ -105,4 +105,3 @@ class DataSender:
         cur.execute(query)
         con.commit()
         con.close()
-   

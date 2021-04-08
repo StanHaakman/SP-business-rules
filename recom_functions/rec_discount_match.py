@@ -24,6 +24,6 @@ class DiscountMatch:
             self.cur.execute(query)
             data.append(self.cur.fetchall())
 
-        filterd_data = [i[0] for i in data[0]]
+        filtered_data = [i[0] for i in data[0]]
 
-        return filterd_data
+        return filtered_data
