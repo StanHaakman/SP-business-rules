@@ -37,13 +37,13 @@ def create_popular_products():
 
     converter = Converter()
 
-    # converter.sessions(fieldnames=['has_sale', '_id', 'order.products'], filename=f'sessions_has_sale.csv')
+    converter.sessions(fieldnames=['has_sale', '_id', 'order.products'], filename=f'sessions_has_sale.csv')
 
     filter_sessions = FilterSessions()
 
     filter_sessions.load_dataframe(filename=f'{CSV_location}sessions_has_sale.csv')
-    # filter_sessions.has_filter()
-    # filter_sessions.drop_column(['has_sale', '_id'])
+    filter_sessions.has_filter()
+    filter_sessions.drop_column(['has_sale', '_id'])
     df = filter_sessions.fix_alles()
     filter_sessions.save_dataframe(filename=f'{CSV_location}sessions_has_sale.csv')
 
