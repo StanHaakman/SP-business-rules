@@ -50,6 +50,7 @@ def data_count(old_df):
     return df
 
 
-lst = get_visitor_info('5a393eceed295900010386a8')
+lst = get_visitor_info('5a396522ed2959000103baac')
 df = get_df(lst)
 df = data_count(df)
+print(df)

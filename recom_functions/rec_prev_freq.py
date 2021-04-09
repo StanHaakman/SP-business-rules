@@ -45,10 +45,16 @@ class GetFreq:
     def data_count(self, old_df):
         df = pd.DataFrame()
 
-        df['category'] = old_df['category'].value_counts()[:2].index.tolist()
-        df['sub_category'] = old_df['sub_category'].value_counts()[:2].index.tolist()
-        df['sub_sub_category'] = old_df['sub_sub_category'].value_counts()[:2].index.tolist()
-        df['target'] = old_df['target'].value_counts()[:2].index.tolist()
+        try:
+            df['category'] = old_df['category'].value_counts()[:2].index.tolist()
+            df['sub_category'] = old_df['sub_category'].value_counts()[:2].index.tolist()
+            df['sub_sub_category'] = old_df['sub_sub_category'].value_counts()[:2].index.tolist()
+            df['target'] = old_df['target'].value_counts()[:2].index.tolist()
+        except ValueError:
+            df['category'] = old_df['category'].value_counts()[:1].index.tolist()
+            df['sub_category'] = old_df['sub_category'].value_counts()[:1].index.tolist()
+            df['sub_sub_category'] = old_df['sub_sub_category'].value_counts()[:1].index.tolist()
+            df['target'] = old_df['target'].value_counts()[:1].index.tolist()
 
         return df
 
