@@ -142,7 +142,6 @@ def get_first_from_tuple(tupl):
 
 
 def get_id_from_dict_in_list(dict):
-    print(dict)
     empty_list = []
     if dict != empty_list:
         return dict[0]['id']
